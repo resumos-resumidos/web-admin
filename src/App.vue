@@ -1,19 +1,9 @@
 <template>
-  <v-app>
-    <SideMenu />
-    <v-main>
-      <router-view />
-    </v-main>
-  </v-app>
+  <router-view />
 </template>
 
 <script>
-import SideMenu from './components/SideMenu.vue';
-
 export default {
   name: 'App',
-  components: {
-    SideMenu,
-  },
 };
 </script>
