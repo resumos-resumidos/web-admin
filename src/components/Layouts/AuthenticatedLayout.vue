@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import SideMenu from './SideMenu.vue';
+import SideMenu from '../SideMenu/SideMenu.vue';
 
 export default {
   name: 'AuthenticatedLayout',
