@@ -32,7 +32,7 @@
       <v-divider />
 
       <v-list dense>
-        <ListItem
+        <SideMenuItem
           icon="mdi-arrow-right"
           title="Disciplinas"
           to="/disciplines"
@@ -43,12 +43,12 @@
 </template>
 
 <script>
-import ListItem from './ListItem.vue';
+import SideMenuItem from './SideMenuItem.vue';
 
 export default {
   name: 'SideMenu',
   components: {
-    ListItem,
+    SideMenuItem,
   },
   data: () => ({ drawer: false }),
 };

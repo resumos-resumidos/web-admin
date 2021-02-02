@@ -14,7 +14,7 @@
 
 <script>
 export default {
-  name: 'ListItem',
+  name: 'SideMenuItem',
   props: {
     icon: {
       type: String,
