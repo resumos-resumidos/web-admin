@@ -31,14 +31,25 @@
 
       <v-divider />
 
-      <v-list dense />
+      <v-list dense>
+        <ListItem
+          icon="mdi-arrow-right"
+          title="Disciplinas"
+          to="/disciplines"
+        />
+      </v-list>
     </v-navigation-drawer>
   </div>
 </template>
 
 <script>
+import ListItem from './ListItem.vue';
+
 export default {
   name: 'SideMenu',
+  components: {
+    ListItem,
+  },
   data: () => ({ drawer: false }),
 };
 </script>

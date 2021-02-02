@@ -1,9 +1,17 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
+import Disciplines from '../views/Disciplines.vue';
+
 Vue.use(VueRouter);
 
-const routes = [];
+const routes = [
+  {
+    path: '/disciplines',
+    name: 'disciplines',
+    component: Disciplines,
+  },
+];
 
 const router = new VueRouter({
   mode: 'history',
