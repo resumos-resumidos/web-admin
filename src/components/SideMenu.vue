@@ -50,6 +50,6 @@ export default {
   components: {
     SideMenuItem,
   },
-  data: () => ({ drawer: false }),
+  data: () => ({ drawer: null }),
 };
 </script>
