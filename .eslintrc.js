@@ -13,9 +13,10 @@ module.exports = {
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    'vue/order-in-components': ['error'],
     'vue/match-component-file-name': ['error', {
-      'extensions': ['vue'],
-      'shouldMatchCase': true
-    }]
+      extensions: ['vue'],
+      shouldMatchCase: true,
+    }],
   },
 };
