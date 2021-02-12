@@ -13,16 +13,19 @@
         </v-row>
       </v-container>
     </v-main>
+    <Snackbar />
   </v-app>
 </template>
 
 <script>
 import SideMenu from '../SideMenu/SideMenu.vue';
+import Snackbar from '../Utils/Snackbar.vue';
 
 export default {
   name: 'AuthenticatedLayout',
   components: {
     SideMenu,
+    Snackbar,
   },
 };
 </script>
