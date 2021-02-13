@@ -4,15 +4,6 @@
     :timeout="2000"
   >
     {{ text }}
-    <template v-slot:action="{ attrs }">
-      <v-btn
-        text
-        v-bind="attrs"
-        @click="CLOSE_SNACKBAR"
-      >
-        Fechar
-      </v-btn>
-    </template>
   </v-snackbar>
 </template>
 
@@ -29,7 +20,7 @@ export default {
       },
       set(newValue) {
         if (newValue === false) {
-          this.CLOSE_SNACKBAR();
+          this.HANDLE_SNACKBAR({ show: false, text: null });
         }
       },
     },
@@ -38,7 +29,7 @@ export default {
     },
   },
   methods: {
-    ...mapMutations(['CLOSE_SNACKBAR']),
+    ...mapMutations(['HANDLE_SNACKBAR']),
   },
 };
 </script>

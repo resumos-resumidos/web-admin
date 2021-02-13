@@ -36,11 +36,11 @@ export default {
 
       disciplines.forEach(({ title }) => this.rows.push([title]));
     } catch (error) {
-      this.SHOW_SNACKBAR({ show: true, text: error });
+      this.HANDLE_SNACKBAR({ show: true, text: error });
     }
   },
   methods: {
-    ...mapMutations(['SHOW_SNACKBAR']),
+    ...mapMutations(['HANDLE_SNACKBAR']),
   },
 };
 </script>

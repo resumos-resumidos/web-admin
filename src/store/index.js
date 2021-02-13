@@ -11,13 +11,9 @@ export default new Vuex.Store({
     },
   },
   mutations: {
-    SHOW_SNACKBAR: (state, { show, text }) => {
+    HANDLE_SNACKBAR: (state, { show, text }) => {
       state.snackbar.show = show;
       state.snackbar.text = text;
-    },
-    CLOSE_SNACKBAR: (state) => {
-      state.snackbar.show = false;
-      state.snackbar.text = null;
     },
   },
   actions: {
