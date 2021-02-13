@@ -1,16 +1,13 @@
 <template>
-  <BaseButton
-    icon="mdi-pencil"
-  />
+  <v-btn icon>
+    <v-icon>
+      mdi-pencil
+    </v-icon>
+  </v-btn>
 </template>
 
 <script>
-import BaseButton from './BaseButton.vue';
-
 export default {
   name: 'EditButton',
-  components: {
-    BaseButton,
-  },
 };
 </script>

@@ -1,16 +1,13 @@
 <template>
-  <BaseButton
-    icon="mdi-delete"
-  />
+  <v-btn icon>
+    <v-icon>
+      mdi-delete
+    </v-icon>
+  </v-btn>
 </template>
 
 <script>
-import BaseButton from './BaseButton.vue';
-
 export default {
   name: 'DeleteButton',
-  components: {
-    BaseButton,
-  },
 };
 </script>

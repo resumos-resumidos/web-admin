@@ -1,16 +1,13 @@
 <template>
-  <BaseButton
-    icon="mdi-plus-circle-outline"
-  />
+  <v-btn icon>
+    <v-icon>
+      mdi-plus-circle-outline
+    </v-icon>
+  </v-btn>
 </template>
 
 <script>
-import BaseButton from './BaseButton.vue';
-
 export default {
   name: 'CreateButton',
-  components: {
-    BaseButton,
-  },
 };
 </script>
