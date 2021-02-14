@@ -31,5 +31,6 @@ module.exports = {
         alphabetize: { order: 'asc', ignoreCase: true },
       },
     ],
+    'no-alert': 'off',
   },
 };
