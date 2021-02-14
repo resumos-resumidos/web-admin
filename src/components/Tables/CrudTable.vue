@@ -16,7 +16,7 @@
       </thead>
       <tbody>
         <tr
-          v-for="(columns, rowIndex) in rows"
+          v-for="({id, columns}, rowIndex) in rows"
           :key="rowIndex"
         >
           <td
@@ -27,7 +27,10 @@
           </td>
           <td class="text-right">
             <EditButton />
-            <DeleteButton />
+            <DeleteButton
+              :id="id"
+              @destroy="destroy"
+            />
           </td>
         </tr>
       </tbody>
@@ -43,9 +46,13 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
+
 import CreateButton from '../Buttons/CreateButton.vue';
 import DeleteButton from '../Buttons/DeleteButton.vue';
 import EditButton from '../Buttons/EditButton.vue';
+
+import api from '../../services/api';
 
 export default {
   name: 'CrudTable',
@@ -55,7 +62,7 @@ export default {
     EditButton,
   },
   props: {
-    headers: {
+    tableHeaders: {
       type: Array,
       required: true,
     },
@@ -63,9 +70,35 @@ export default {
       type: String,
       required: true,
     },
-    rows: {
+    tableRows: {
       type: Array,
       required: true,
+    },
+  },
+  computed: {
+    headers() {
+      return this.tableHeaders;
+    },
+    rows: {
+      get() {
+        return this.tableRows;
+      },
+      set(newValue) {
+        this.$emit('update:table-rows', newValue);
+      },
+    },
+  },
+  methods: {
+    ...mapMutations(['HANDLE_SNACKBAR']),
+    async destroy(id) {
+      try {
+        if (window.confirm('Tem certeza que deseja excluir este registro?')) {
+          await api.delete(`${this.$route.path}/${id}`);
+          this.rows = this.rows.filter((row) => row.id !== id);
+        }
+      } catch (error) {
+        this.HANDLE_SNACKBAR({ show: true, text: error });
+      }
     },
   },
 };

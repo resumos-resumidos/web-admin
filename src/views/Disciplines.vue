@@ -4,9 +4,9 @@
       Disciplinas
     </h2>
     <CrudTable
-      :headers="headers"
+      :table-headers="headers"
       :message-when-no-records="messageWhenNoRecords"
-      :rows="rows"
+      :table-rows.sync="rows"
     />
   </AuthenticatedLayout>
 </template>
@@ -34,7 +34,7 @@ export default {
     try {
       const disciplines = await api.get('/disciplines');
 
-      disciplines.forEach(({ title }) => this.rows.push([title]));
+      disciplines.forEach(({ id, title }) => this.rows.push({ id, columns: [title] }));
     } catch (error) {
       this.HANDLE_SNACKBAR({ show: true, text: error });
     }
