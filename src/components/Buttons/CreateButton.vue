@@ -1,5 +1,8 @@
 <template>
-  <v-btn icon>
+  <v-btn
+    icon
+    :to="`${this.$route.path}/create`"
+  >
     <v-icon>
       mdi-plus-circle-outline
     </v-icon>

@@ -26,7 +26,7 @@
             {{ column }}
           </td>
           <td class="text-right">
-            <EditButton />
+            <EditButton :id="id" />
             <DeleteButton
               :id="id"
               @destroy="destroy"

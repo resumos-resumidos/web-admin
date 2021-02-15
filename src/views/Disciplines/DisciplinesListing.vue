@@ -1,28 +1,21 @@
 <template>
-  <AuthenticatedLayout>
-    <h2 class="mb-3">
-      Disciplinas
-    </h2>
-    <CrudTable
-      :table-headers="headers"
-      :message-when-no-records="messageWhenNoRecords"
-      :table-rows.sync="rows"
-    />
-  </AuthenticatedLayout>
+  <CrudTable
+    :table-headers="headers"
+    :message-when-no-records="messageWhenNoRecords"
+    :table-rows.sync="rows"
+  />
 </template>
 
 <script>
 import { mapMutations } from 'vuex';
 
-import AuthenticatedLayout from '../components/Layouts/AuthenticatedLayout.vue';
-import CrudTable from '../components/Tables/CrudTable.vue';
+import CrudTable from '../../components/Tables/CrudTable.vue';
 
-import api from '../services/api';
+import api from '../../services/api';
 
 export default {
-  name: 'Disciplines',
+  name: 'DisciplinesListing',
   components: {
-    AuthenticatedLayout,
     CrudTable,
   },
   data: () => ({
