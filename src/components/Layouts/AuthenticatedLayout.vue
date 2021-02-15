@@ -13,6 +13,15 @@
                 <v-toolbar-title>
                   {{ title }}
                 </v-toolbar-title>
+                <v-spacer v-if="showBackButton" />
+                <v-btn
+                  v-if="showBackButton"
+                  text
+                  color="primary"
+                  @click="$router.push(routePath)"
+                >
+                  Voltar
+                </v-btn>
               </v-toolbar>
               <slot />
             </v-card>
@@ -35,9 +44,18 @@ export default {
     Snackbar,
   },
   props: {
+    routePath: {
+      type: String,
+      required: true,
+    },
     title: {
       type: String,
       required: true,
+    },
+  },
+  computed: {
+    showBackButton() {
+      return this.$route.path !== this.routePath;
     },
   },
 };

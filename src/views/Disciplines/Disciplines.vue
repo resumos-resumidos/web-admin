@@ -1,6 +1,7 @@
 <template>
   <AuthenticatedLayout
     title="Disciplinas"
+    route-path="/disciplines"
   >
     <router-view />
   </AuthenticatedLayout>
