@@ -1,8 +1,7 @@
 <template>
-  <AuthenticatedLayout>
-    <h2 class="mb-3">
-      Disciplinas
-    </h2>
+  <AuthenticatedLayout
+    title="Disciplinas"
+  >
     <router-view />
   </AuthenticatedLayout>
 </template>

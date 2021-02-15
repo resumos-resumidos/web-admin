@@ -1,9 +1,11 @@
 <template>
-  <CrudTable
-    :table-headers="headers"
-    :message-when-no-records="messageWhenNoRecords"
-    :table-rows.sync="rows"
-  />
+  <v-card-text>
+    <CrudTable
+      :table-headers="headers"
+      :message-when-no-records="messageWhenNoRecords"
+      :table-rows.sync="rows"
+    />
+  </v-card-text>
 </template>
 
 <script>

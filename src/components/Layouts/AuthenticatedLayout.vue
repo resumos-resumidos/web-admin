@@ -8,7 +8,14 @@
           justify="center"
         >
           <v-col cols="12">
-            <slot />
+            <v-card class="elevation-12">
+              <v-toolbar flat>
+                <v-toolbar-title>
+                  {{ title }}
+                </v-toolbar-title>
+              </v-toolbar>
+              <slot />
+            </v-card>
           </v-col>
         </v-row>
       </v-container>
@@ -26,6 +33,12 @@ export default {
   components: {
     SideMenu,
     Snackbar,
+  },
+  props: {
+    title: {
+      type: String,
+      required: true,
+    },
   },
 };
 </script>
