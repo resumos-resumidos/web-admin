@@ -21,7 +21,12 @@ export default {
     CrudTable,
   },
   data: () => ({
-    headers: ['Disciplina', 'Contéudo', 'Resumo', 'Gratuito?'],
+    headers: [
+      'Disciplina',
+      'Contéudo',
+      'Resumo',
+      'Gratuito?',
+    ],
     messageWhenNoRecords: 'Não existe nenhum resumo cadastrado',
     rows: [],
   }),

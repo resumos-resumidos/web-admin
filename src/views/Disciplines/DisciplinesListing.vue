@@ -21,7 +21,9 @@ export default {
     CrudTable,
   },
   data: () => ({
-    headers: ['Disciplina'],
+    headers: [
+      'Disciplina',
+    ],
     messageWhenNoRecords: 'Não existe nenhuma disciplina cadastrada',
     rows: [],
   }),
