@@ -4,7 +4,7 @@
       <v-form>
         <v-text-field
           v-model="title"
-          label="Título"
+          label="Disciplina"
           :error-messages="errors.title"
         />
       </v-form>

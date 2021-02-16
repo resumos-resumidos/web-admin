@@ -21,7 +21,7 @@ export default {
     CrudTable,
   },
   data: () => ({
-    headers: ['Título'],
+    headers: ['Disciplina'],
     messageWhenNoRecords: 'Não existe nenhuma disciplina cadastrada',
     rows: [],
   }),
@@ -29,7 +29,12 @@ export default {
     try {
       const disciplines = await api.get('/disciplines');
 
-      disciplines.forEach(({ id, title }) => this.rows.push({ id, columns: [title] }));
+      disciplines.forEach((discipline) => this.rows.push({
+        id: discipline.id,
+        columns: [
+          discipline.title,
+        ],
+      }));
     } catch (error) {
       this.HANDLE_SNACKBAR({ show: true, text: error });
     }
