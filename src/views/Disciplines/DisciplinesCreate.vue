@@ -13,7 +13,7 @@
       <v-btn
         text
         color="primary"
-        @click="create"
+        @click="createDiscipline"
       >
         Salvar
       </v-btn>
@@ -31,7 +31,7 @@ export default {
     errors: {},
   }),
   methods: {
-    async create() {
+    async createDiscipline() {
       try {
         this.errors = {};
 
