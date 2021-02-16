@@ -26,21 +26,24 @@ export default {
     rows: [],
   }),
   async created() {
-    try {
-      const disciplines = await api.get('/disciplines');
-
-      disciplines.forEach((discipline) => this.rows.push({
-        id: discipline.id,
-        columns: [
-          discipline.title,
-        ],
-      }));
-    } catch (error) {
-      this.HANDLE_SNACKBAR({ show: true, text: error });
-    }
+    this.getDisciplines();
   },
   methods: {
     ...mapMutations(['HANDLE_SNACKBAR']),
+    async getDisciplines() {
+      try {
+        const disciplines = await api.get('/disciplines');
+
+        disciplines.forEach((discipline) => this.rows.push({
+          id: discipline.id,
+          columns: [
+            discipline.title,
+          ],
+        }));
+      } catch (error) {
+        this.HANDLE_SNACKBAR({ show: true, text: error });
+      }
+    },
   },
 };
 </script>

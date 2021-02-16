@@ -26,22 +26,25 @@ export default {
     rows: [],
   }),
   async created() {
-    try {
-      const contents = await api.get('/contents');
-
-      contents.forEach((content) => this.rows.push({
-        id: content.id,
-        columns: [
-          content.discipline.title,
-          content.title,
-        ],
-      }));
-    } catch (error) {
-      this.HANDLE_SNACKBAR({ show: true, text: error });
-    }
+    this.getContents();
   },
   methods: {
     ...mapMutations(['HANDLE_SNACKBAR']),
+    async getContents() {
+      try {
+        const contents = await api.get('/contents');
+
+        contents.forEach((content) => this.rows.push({
+          id: content.id,
+          columns: [
+            content.discipline.title,
+            content.title,
+          ],
+        }));
+      } catch (error) {
+        this.HANDLE_SNACKBAR({ show: true, text: error });
+      }
+    },
   },
 };
 </script>
