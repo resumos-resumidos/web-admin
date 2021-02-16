@@ -1,6 +1,10 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
+import Contents from '../views/Contents/Contents.vue';
+import ContentsCreate from '../views/Contents/ContentsCreate.vue';
+import ContentsEdit from '../views/Contents/ContentsEdit.vue';
+import ContentsListing from '../views/Contents/ContentsListing.vue';
 import Disciplines from '../views/Disciplines/Disciplines.vue';
 import DisciplinesCreate from '../views/Disciplines/DisciplinesCreate.vue';
 import DisciplinesEdit from '../views/Disciplines/DisciplinesEdit.vue';
@@ -24,6 +28,24 @@ const routes = [
       {
         path: 'edit/:id',
         component: DisciplinesEdit,
+      },
+    ],
+  },
+  {
+    path: '/contents',
+    component: Contents,
+    children: [
+      {
+        path: '',
+        component: ContentsListing,
+      },
+      {
+        path: 'create',
+        component: ContentsCreate,
+      },
+      {
+        path: 'edit/:id',
+        component: ContentsEdit,
       },
     ],
   },

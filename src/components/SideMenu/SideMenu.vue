@@ -37,6 +37,11 @@
           title="Disciplinas"
           to="/disciplines"
         />
+        <SideMenuItem
+          icon="mdi-arrow-right"
+          title="Contéudos"
+          to="/contents"
+        />
       </v-list>
     </v-navigation-drawer>
   </div>
