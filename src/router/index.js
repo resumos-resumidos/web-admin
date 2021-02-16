@@ -9,6 +9,10 @@ import Disciplines from '../views/Disciplines/Disciplines.vue';
 import DisciplinesCreate from '../views/Disciplines/DisciplinesCreate.vue';
 import DisciplinesEdit from '../views/Disciplines/DisciplinesEdit.vue';
 import DisciplinesListing from '../views/Disciplines/DisciplinesListing.vue';
+import Summaries from '../views/Summaries/Summaries.vue';
+import SummariesCreate from '../views/Summaries/SummariesCreate.vue';
+import SummariesEdit from '../views/Summaries/SummariesEdit.vue';
+import SummariesListing from '../views/Summaries/SummariesListing.vue';
 
 Vue.use(VueRouter);
 
@@ -46,6 +50,24 @@ const routes = [
       {
         path: 'edit/:id',
         component: ContentsEdit,
+      },
+    ],
+  },
+  {
+    path: '/summaries',
+    component: Summaries,
+    children: [
+      {
+        path: '',
+        component: SummariesListing,
+      },
+      {
+        path: 'create',
+        component: SummariesCreate,
+      },
+      {
+        path: 'edit/:id',
+        component: SummariesEdit,
       },
     ],
   },

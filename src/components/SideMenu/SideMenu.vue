@@ -42,6 +42,11 @@
           title="Contéudos"
           to="/contents"
         />
+        <SideMenuItem
+          icon="mdi-arrow-right"
+          title="Resumos"
+          to="/summaries"
+        />
       </v-list>
     </v-navigation-drawer>
   </div>
