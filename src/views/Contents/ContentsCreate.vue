@@ -47,10 +47,13 @@ export default {
       try {
         const disciplines = await api.get('/disciplines');
 
-        disciplines.forEach((discipline) => this.disciplines.push({
-          value: discipline.id,
-          text: discipline.title,
-        }));
+        if (disciplines.length > 0) {
+          this.disciplines.push({ value: null, text: '' });
+          disciplines.forEach((discipline) => this.disciplines.push({
+            value: discipline.id,
+            text: discipline.title,
+          }));
+        }
       } catch (error) {
         this.HANDLE_SNACKBAR({ show: true, text: error });
       }

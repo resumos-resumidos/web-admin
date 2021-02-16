@@ -25,7 +25,7 @@ export default {
       'Disciplina',
       'Contéudo',
       'Resumo',
-      'Gratuito?',
+      'Gratuito',
     ],
     messageWhenNoRecords: 'Não existe nenhum resumo cadastrado',
     rows: [],
