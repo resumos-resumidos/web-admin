@@ -13,7 +13,7 @@
       <v-btn
         text
         color="primary"
-        @click="edit"
+        @click="editDiscipline"
       >
         Salvar
       </v-btn>
@@ -33,26 +33,30 @@ export default {
     errors: {},
   }),
   computed: {
-    id() {
+    disciplineId() {
       return this.$route.params.id;
     },
   },
   async created() {
-    try {
-      const { title } = await api.get(`/disciplines/${this.id}`);
-      this.title = title;
-    } catch (error) {
-      this.HANDLE_SNACKBAR({ show: true, text: error });
-    }
+    this.getDiscipline();
   },
   methods: {
     ...mapMutations(['HANDLE_SNACKBAR']),
-    async edit() {
+    async getDiscipline() {
+      try {
+        const discipline = await api.get(`/disciplines/${this.disciplineId}`);
+        this.title = discipline.title;
+      } catch (error) {
+        this.HANDLE_SNACKBAR({ show: true, text: error });
+      }
+    },
+    async editDiscipline() {
       try {
         this.errors = {};
 
-        const { title } = this;
-        await api.put(`/disciplines/${this.id}`, { title });
+        await api.put(`/disciplines/${this.disciplineId}`, {
+          title: this.title,
+        });
 
         this.$router.push('/disciplines');
       } catch (errors) {
