@@ -111,6 +111,12 @@ export default {
 table >
 tbody >
 tr:hover:not(.v-data-table__expanded__content):not(.v-data-table__empty-wrapper) {
-    background: initial !important;
+  background: initial !important;
+}
+
+/* Garante que as colunas da tabela não vão quebrar o conteúdo em mais de uma linha */
+.v-data-table > .v-data-table__wrapper > table > thead > tr > th,
+.v-data-table > .v-data-table__wrapper > table > tbody > tr > td {
+  white-space: nowrap;
 }
 </style>
