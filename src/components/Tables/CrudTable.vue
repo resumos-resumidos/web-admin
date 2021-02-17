@@ -16,19 +16,19 @@
       </thead>
       <tbody>
         <tr
-          v-for="({id, columns}, rowIndex) in rows"
+          v-for="(row, rowIndex) in rows"
           :key="rowIndex"
         >
           <td
-            v-for="(column, columnIndex) in columns"
+            v-for="(column, columnIndex) in row.columns"
             :key="columnIndex"
           >
             {{ column }}
           </td>
           <td class="text-right">
-            <EditButton :id="id" />
+            <EditButton :id="row.id" />
             <DeleteButton
-              :id="id"
+              :id="row.id"
               @destroy="destroy"
             />
           </td>
@@ -46,6 +46,7 @@
 </template>
 
 <script>
+import get from 'lodash/get';
 import { mapMutations } from 'vuex';
 
 import CreateButton from '../Buttons/CreateButton.vue';
@@ -62,7 +63,11 @@ export default {
     EditButton,
   },
   props: {
-    tableHeaders: {
+    columns: {
+      type: Array,
+      required: true,
+    },
+    headers: {
       type: Array,
       required: true,
     },
@@ -70,26 +75,40 @@ export default {
       type: String,
       required: true,
     },
-    tableRows: {
-      type: Array,
+    routePath: {
+      type: String,
       required: true,
     },
   },
-  computed: {
-    headers() {
-      return this.tableHeaders;
-    },
-    rows: {
-      get() {
-        return this.tableRows;
-      },
-      set(newValue) {
-        this.$emit('update:table-rows', newValue);
-      },
-    },
+  data: () => ({
+    loaded: false,
+    rows: [],
+  }),
+  async created() {
+    this.index();
   },
   methods: {
     ...mapMutations(['HANDLE_SNACKBAR']),
+    async index() {
+      try {
+        const records = await api.get(this.routePath);
+
+        records.forEach((record) => this.rows.push({
+          id: record.id,
+          columns: this.columns.map((column) => {
+            let value = get(record, column);
+
+            if (typeof value === 'boolean') {
+              value = value ? 'Sim' : 'Não';
+            }
+
+            return value;
+          }),
+        }));
+      } catch (error) {
+        this.HANDLE_SNACKBAR({ show: true, text: error });
+      }
+    },
     async destroy(id) {
       try {
         if (window.confirm('Tem certeza que deseja excluir este registro?')) {
