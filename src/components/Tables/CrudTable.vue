@@ -34,7 +34,7 @@
           </td>
         </tr>
       </tbody>
-      <tfoot v-if="rows.length === 0">
+      <tfoot v-if="loaded && rows.length === 0">
         <tr class="text-center font-weight-light">
           <td :colspan="headers.length + 1">
             {{ messageWhenNoRecords }}
@@ -105,6 +105,8 @@ export default {
             return value;
           }),
         }));
+
+        this.loaded = true;
       } catch (error) {
         this.HANDLE_SNACKBAR({ show: true, text: error });
       }
