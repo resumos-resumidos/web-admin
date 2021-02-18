@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import get from 'lodash/get';
+import _get from 'lodash/get';
 import { mapMutations } from 'vuex';
 
 import CreateButton from '../Buttons/CreateButton.vue';
@@ -96,7 +96,7 @@ export default {
         records.forEach((record) => this.rows.push({
           id: record.id,
           columns: this.columns.map((column) => {
-            let value = get(record, column);
+            let value = _get(record, column);
 
             if (typeof value === 'boolean') {
               value = value ? 'Sim' : 'Não';
