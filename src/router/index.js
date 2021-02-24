@@ -2,8 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 
 import Contents from '../views/Contents/Contents.vue';
-import ContentsCreate from '../views/Contents/ContentsCreate.vue';
-import ContentsEdit from '../views/Contents/ContentsEdit.vue';
+import ContentsForm from '../views/Contents/ContentsForm.vue';
 import ContentsListing from '../views/Contents/ContentsListing.vue';
 import Disciplines from '../views/Disciplines/Disciplines.vue';
 import DisciplinesForm from '../views/Disciplines/DisciplinesForm.vue';
@@ -44,11 +43,11 @@ const routes = [
       },
       {
         path: 'create',
-        component: ContentsCreate,
+        component: ContentsForm,
       },
       {
         path: 'edit/:id',
-        component: ContentsEdit,
+        component: ContentsForm,
       },
     ],
   },

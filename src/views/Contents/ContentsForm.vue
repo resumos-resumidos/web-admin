@@ -20,7 +20,7 @@
       <v-btn
         text
         color="primary"
-        @click="editContent"
+        @click="save"
       >
         Salvar
       </v-btn>
@@ -34,7 +34,7 @@ import { mapMutations } from 'vuex';
 import api from '../../services/api';
 
 export default {
-  name: 'ContentsEdit',
+  name: 'ContentsForm',
   data: () => ({
     disciplineId: null,
     title: null,
@@ -48,7 +48,10 @@ export default {
   },
   async created() {
     this.getDisciplines();
-    this.getContent();
+
+    if (this.contentId) {
+      this.getContent();
+    }
   },
   methods: {
     ...mapMutations(['HANDLE_SNACKBAR']),
@@ -74,14 +77,20 @@ export default {
         this.HANDLE_SNACKBAR({ show: true, text: error });
       }
     },
-    async editContent() {
+    async save() {
       try {
         this.errors = {};
 
-        await api.put(`/contents/${this.contentId}`, {
+        const data = {
           discipline_id: this.disciplineId,
           title: this.title,
-        });
+        };
+
+        if (this.contentId) {
+          await api.put(`/contents/${this.contentId}`, data);
+        } else {
+          await api.post('/contents', data);
+        }
 
         this.$router.push('/contents');
       } catch (errors) {
