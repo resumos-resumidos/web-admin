@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-card-text>
-      <v-form>
+      <v-form @submit.prevent>
         <v-select
           v-model="disciplineId"
           :items="disciplines"
@@ -21,6 +21,7 @@
           v-model="title"
           label="Resumo"
           :error-messages="errors.title"
+          @keydown.enter="saveSummary"
         />
         <v-checkbox
           v-model="free"

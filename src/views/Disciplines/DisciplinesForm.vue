@@ -1,11 +1,12 @@
 <template>
   <div>
     <v-card-text>
-      <v-form>
+      <v-form @submit.prevent>
         <v-text-field
           v-model="title"
           label="Disciplina"
           :error-messages="errors.title"
+          @keydown.enter="saveDiscipline"
         />
       </v-form>
     </v-card-text>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-card-text>
-      <v-form>
+      <v-form @submit.prevent>
         <v-select
           v-model="disciplineId"
           :items="disciplines"
@@ -13,6 +13,7 @@
           v-model="title"
           label="Conteúdo"
           :error-messages="errors.title"
+          @keydown.enter="saveContent"
         />
       </v-form>
     </v-card-text>
