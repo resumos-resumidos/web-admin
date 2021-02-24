@@ -13,7 +13,7 @@
       <v-btn
         text
         color="primary"
-        @click="save"
+        @click="saveDiscipline"
       >
         Salvar
       </v-btn>
@@ -52,7 +52,7 @@ export default {
         this.HANDLE_SNACKBAR({ show: true, text: error });
       }
     },
-    async save() {
+    async saveDiscipline() {
       try {
         this.errors = {};
 
