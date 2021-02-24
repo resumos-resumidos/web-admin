@@ -33,7 +33,7 @@
       <v-btn
         text
         color="primary"
-        @click="editSummary"
+        @click="save"
       >
         Salvar
       </v-btn>
@@ -45,7 +45,7 @@
 import api from '../../services/api';
 
 export default {
-  name: 'SummariesEdit',
+  name: 'SummariesForm',
   data: () => ({
     disciplineId: null,
     contentId: null,
@@ -62,7 +62,10 @@ export default {
   },
   async created() {
     this.getDisciplines();
-    this.getSummary();
+
+    if (this.summaryId) {
+      this.getSummary();
+    }
   },
   methods: {
     async getDisciplines() {
@@ -115,15 +118,21 @@ export default {
         this.HANDLE_SNACKBAR({ show: true, text: error });
       }
     },
-    async editSummary() {
+    async save() {
       try {
         this.errors = {};
 
-        await api.put(`/summaries/${this.summaryId}`, {
+        const data = {
           content_id: this.contentId,
           title: this.title,
           free: this.free,
-        });
+        };
+
+        if (this.summaryId) {
+          await api.put(`/summaries/${this.summaryId}`, data);
+        } else {
+          await api.post('/summaries', data);
+        }
 
         this.$router.push('/summaries');
       } catch (errors) {

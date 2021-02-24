@@ -8,8 +8,7 @@ import Disciplines from '../views/Disciplines/Disciplines.vue';
 import DisciplinesForm from '../views/Disciplines/DisciplinesForm.vue';
 import DisciplinesListing from '../views/Disciplines/DisciplinesListing.vue';
 import Summaries from '../views/Summaries/Summaries.vue';
-import SummariesCreate from '../views/Summaries/SummariesCreate.vue';
-import SummariesEdit from '../views/Summaries/SummariesEdit.vue';
+import SummariesForm from '../views/Summaries/SummariesForm.vue';
 import SummariesListing from '../views/Summaries/SummariesListing.vue';
 
 Vue.use(VueRouter);
@@ -61,11 +60,11 @@ const routes = [
       },
       {
         path: 'create',
-        component: SummariesCreate,
+        component: SummariesForm,
       },
       {
         path: 'edit/:id',
-        component: SummariesEdit,
+        component: SummariesForm,
       },
     ],
   },
