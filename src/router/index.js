@@ -6,8 +6,7 @@ import ContentsCreate from '../views/Contents/ContentsCreate.vue';
 import ContentsEdit from '../views/Contents/ContentsEdit.vue';
 import ContentsListing from '../views/Contents/ContentsListing.vue';
 import Disciplines from '../views/Disciplines/Disciplines.vue';
-import DisciplinesCreate from '../views/Disciplines/DisciplinesCreate.vue';
-import DisciplinesEdit from '../views/Disciplines/DisciplinesEdit.vue';
+import DisciplinesForm from '../views/Disciplines/DisciplinesForm.vue';
 import DisciplinesListing from '../views/Disciplines/DisciplinesListing.vue';
 import Summaries from '../views/Summaries/Summaries.vue';
 import SummariesCreate from '../views/Summaries/SummariesCreate.vue';
@@ -27,11 +26,11 @@ const routes = [
       },
       {
         path: 'create',
-        component: DisciplinesCreate,
+        component: DisciplinesForm,
       },
       {
         path: 'edit/:id',
-        component: DisciplinesEdit,
+        component: DisciplinesForm,
       },
     ],
   },

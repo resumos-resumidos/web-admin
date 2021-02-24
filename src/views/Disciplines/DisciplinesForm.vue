@@ -13,7 +13,7 @@
       <v-btn
         text
         color="primary"
-        @click="editDiscipline"
+        @click="save"
       >
         Salvar
       </v-btn>
@@ -27,7 +27,7 @@ import { mapMutations } from 'vuex';
 import api from '../../services/api';
 
 export default {
-  name: 'DisciplinesEdit',
+  name: 'DisciplinesForm',
   data: () => ({
     title: null,
     errors: {},
@@ -38,7 +38,9 @@ export default {
     },
   },
   async created() {
-    this.getDiscipline();
+    if (this.disciplineId) {
+      this.getDiscipline();
+    }
   },
   methods: {
     ...mapMutations(['HANDLE_SNACKBAR']),
@@ -50,13 +52,19 @@ export default {
         this.HANDLE_SNACKBAR({ show: true, text: error });
       }
     },
-    async editDiscipline() {
+    async save() {
       try {
         this.errors = {};
 
-        await api.put(`/disciplines/${this.disciplineId}`, {
+        const data = {
           title: this.title,
-        });
+        };
+
+        if (this.disciplineId) {
+          await api.put(`/disciplines/${this.disciplineId}`, data);
+        } else {
+          await api.post('/disciplines', data);
+        }
 
         this.$router.push('/disciplines');
       } catch (errors) {
