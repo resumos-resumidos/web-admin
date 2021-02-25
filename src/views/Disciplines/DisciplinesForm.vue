@@ -7,6 +7,7 @@
           label="Disciplina"
           :error-messages="errors.title"
           @keydown.enter="saveDiscipline"
+          @focus="errors.title = null"
         />
       </v-form>
     </v-card-text>

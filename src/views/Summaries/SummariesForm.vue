@@ -17,17 +17,20 @@
           no-data-text="Não existe nenhum contéudo cadastrado para esta disciplina"
           :disabled="disciplineId === null"
           :messages="disciplineId === null ? contentIdHint : null"
+          @focus="errors.content_id = null"
         />
         <v-text-field
           v-model="title"
           label="Resumo"
           :error-messages="errors.title"
           @keydown.enter="saveSummary"
+          @focus="errors.title = null"
         />
         <v-checkbox
           v-model="free"
           label="Gratuito"
           :error-messages="errors.free"
+          @click="errors.free = null"
         />
       </v-form>
     </v-card-text>

@@ -8,12 +8,14 @@
           label="Disciplina"
           :error-messages="errors.discipline_id"
           no-data-text="Não existe nenhuma disciplina cadastrada"
+          @focus="errors.discipline_id = null"
         />
         <v-text-field
           v-model="title"
           label="Conteúdo"
           :error-messages="errors.title"
           @keydown.enter="saveContent"
+          @focus="errors.title = null"
         />
       </v-form>
     </v-card-text>
