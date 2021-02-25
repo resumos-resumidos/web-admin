@@ -138,7 +138,7 @@ export default {
         this.$router.push('/summaries');
       } catch (errors) {
         Object.keys(errors).forEach((field) => {
-          this.errors = { [field]: errors[field].join(' / '), ...this.errors };
+          this.errors = { [field]: errors[field], ...this.errors };
         });
       }
     },
