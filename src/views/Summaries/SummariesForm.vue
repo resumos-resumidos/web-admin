@@ -16,6 +16,7 @@
           :error-messages="errors.content_id"
           no-data-text="Não existe nenhum contéudo cadastrado para esta disciplina"
           :disabled="disciplineId === null"
+          :messages="disciplineId === null ? contentIdHint : null"
         />
         <v-text-field
           v-model="title"
@@ -55,6 +56,7 @@ export default {
     disciplines: [],
     contents: [],
     errors: {},
+    contentIdHint: 'Selecione uma disciplina para buscar seus respectivos conteúdos',
   }),
   computed: {
     summaryId() {
