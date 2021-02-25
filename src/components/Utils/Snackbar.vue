@@ -1,7 +1,7 @@
 <template>
   <v-snackbar
     v-model="show"
-    :timeout="2000"
+    :timeout="3000"
   >
     {{ text }}
   </v-snackbar>
