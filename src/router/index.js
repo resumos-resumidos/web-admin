@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
+import Login from '../views/Auth/Login.vue';
 import Contents from '../views/Contents/Contents.vue';
 import ContentsForm from '../views/Contents/ContentsForm.vue';
 import ContentsListing from '../views/Contents/ContentsListing.vue';
@@ -14,6 +15,10 @@ import SummariesListing from '../views/Summaries/SummariesListing.vue';
 Vue.use(VueRouter);
 
 const routes = [
+  {
+    path: '/login',
+    component: Login,
+  },
   {
     path: '/disciplines',
     component: Disciplines,
