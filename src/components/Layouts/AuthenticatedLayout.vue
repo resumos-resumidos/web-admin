@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <Layout>
     <SideMenu />
     <v-main>
       <v-container fluid>
@@ -29,19 +29,18 @@
         </v-row>
       </v-container>
     </v-main>
-    <Snackbar />
-  </v-app>
+  </Layout>
 </template>
 
 <script>
 import SideMenu from '../SideMenu/SideMenu.vue';
-import Snackbar from '../Utils/Snackbar.vue';
+import Layout from './Layout.vue';
 
 export default {
   name: 'AuthenticatedLayout',
   components: {
+    Layout,
     SideMenu,
-    Snackbar,
   },
   props: {
     routePath: {
