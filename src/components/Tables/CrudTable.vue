@@ -33,7 +33,14 @@
             {{ column }}
           </td>
           <td class="text-right">
-            <EditButton :id="row.id" />
+            <v-btn
+              icon
+              :to="`${routePath}/edit/${row.id}`"
+            >
+              <v-icon>
+                mdi-pencil
+              </v-icon>
+            </v-btn>
             <v-btn
               icon
               @click="destroy(row.id)"
@@ -60,15 +67,10 @@
 import _get from 'lodash/get';
 import { mapMutations } from 'vuex';
 
-import EditButton from '../Buttons/EditButton.vue';
-
 import api from '../../services/api';
 
 export default {
   name: 'CrudTable',
-  components: {
-    EditButton,
-  },
   props: {
     columns: {
       type: Array,
