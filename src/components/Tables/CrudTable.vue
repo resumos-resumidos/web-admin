@@ -10,7 +10,14 @@
             {{ header }}
           </th>
           <th class="text-right">
-            <CreateButton />
+            <v-btn
+              icon
+              :to="`${routePath}/create`"
+            >
+              <v-icon>
+                mdi-plus-circle-outline
+              </v-icon>
+            </v-btn>
           </th>
         </tr>
       </thead>
@@ -49,7 +56,6 @@
 import _get from 'lodash/get';
 import { mapMutations } from 'vuex';
 
-import CreateButton from '../Buttons/CreateButton.vue';
 import DeleteButton from '../Buttons/DeleteButton.vue';
 import EditButton from '../Buttons/EditButton.vue';
 
@@ -58,7 +64,6 @@ import api from '../../services/api';
 export default {
   name: 'CrudTable',
   components: {
-    CreateButton,
     DeleteButton,
     EditButton,
   },
