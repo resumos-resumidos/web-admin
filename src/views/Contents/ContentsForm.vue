@@ -5,13 +5,7 @@
         Contéudos
       </v-toolbar-title>
       <v-spacer />
-      <v-btn
-        text
-        color="primary"
-        @click="$router.push('/contents')"
-      >
-        Voltar
-      </v-btn>
+      <BackButton route-path="/contents" />
     </template>
     <template #v-card-text>
       <v-form @submit.prevent>
@@ -47,6 +41,7 @@
 <script>
 import { mapMutations } from 'vuex';
 
+import BackButton from '../../components/Buttons/BackButton.vue';
 import CardLayout from '../../components/Layouts/CardLayout.vue';
 
 import api from '../../services/api';
@@ -54,6 +49,7 @@ import api from '../../services/api';
 export default {
   name: 'ContentsForm',
   components: {
+    BackButton,
     CardLayout,
   },
   data: () => ({

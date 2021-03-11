@@ -5,13 +5,7 @@
         Disciplinas
       </v-toolbar-title>
       <v-spacer />
-      <v-btn
-        text
-        color="primary"
-        @click="$router.push('/disciplines')"
-      >
-        Voltar
-      </v-btn>
+      <BackButton route-path="/disciplines" />
     </template>
     <template #v-card-text>
       <v-form @submit.prevent>
@@ -39,6 +33,7 @@
 <script>
 import { mapMutations } from 'vuex';
 
+import BackButton from '../../components/Buttons/BackButton.vue';
 import CardLayout from '../../components/Layouts/CardLayout.vue';
 
 import api from '../../services/api';
@@ -46,6 +41,7 @@ import api from '../../services/api';
 export default {
   name: 'DisciplinesForm',
   components: {
+    BackButton,
     CardLayout,
   },
   data: () => ({
