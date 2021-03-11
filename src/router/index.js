@@ -8,6 +8,7 @@ import ContentsListing from '../views/Contents/ContentsListing.vue';
 import Disciplines from '../views/Disciplines/Disciplines.vue';
 import DisciplinesForm from '../views/Disciplines/DisciplinesForm.vue';
 import DisciplinesListing from '../views/Disciplines/DisciplinesListing.vue';
+import Home from '../views/Home.vue';
 import Summaries from '../views/Summaries/Summaries.vue';
 import SummariesForm from '../views/Summaries/SummariesForm.vue';
 import SummariesListing from '../views/Summaries/SummariesListing.vue';
@@ -15,6 +16,10 @@ import SummariesListing from '../views/Summaries/SummariesListing.vue';
 Vue.use(VueRouter);
 
 const routes = [
+  {
+    path: '/',
+    component: Home,
+  },
   {
     path: '/login',
     component: Login,
