@@ -1,8 +1,10 @@
 <template>
   <GuestLayout>
     <CardLayout>
-      <template #v-toolbar-title>
-        Resumos Resumidos
+      <template #v-toolbar>
+        <v-toolbar-title>
+          Resumos Resumidos
+        </v-toolbar-title>
       </template>
       <template #v-card-text>
         <v-form @submit.prevent>

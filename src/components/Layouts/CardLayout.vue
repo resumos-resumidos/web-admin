@@ -1,9 +1,7 @@
 <template>
   <v-card class="elevation-12">
     <v-toolbar flat>
-      <v-toolbar-title>
-        <slot name="v-toolbar-title" />
-      </v-toolbar-title>
+      <slot name="v-toolbar" />
     </v-toolbar>
     <v-card-text>
       <slot name="v-card-text" />
