@@ -1,8 +1,5 @@
 <template>
-  <AuthenticatedLayout
-    title="Resumos"
-    route-path="/summaries"
-  >
+  <AuthenticatedLayout>
     <router-view />
   </AuthenticatedLayout>
 </template>

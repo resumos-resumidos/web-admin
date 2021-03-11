@@ -1,6 +1,19 @@
 <template>
-  <div>
-    <v-card-text>
+  <CardLayout>
+    <template #v-toolbar>
+      <v-toolbar-title>
+        Disciplinas
+      </v-toolbar-title>
+      <v-spacer />
+      <v-btn
+        text
+        color="primary"
+        @click="$router.push('/disciplines')"
+      >
+        Voltar
+      </v-btn>
+    </template>
+    <template #v-card-text>
       <v-form @submit.prevent>
         <v-text-field
           v-model="title"
@@ -10,8 +23,8 @@
           @focus="errors.title = null"
         />
       </v-form>
-    </v-card-text>
-    <v-card-actions>
+    </template>
+    <template #v-card-actions>
       <v-btn
         text
         color="primary"
@@ -19,17 +32,22 @@
       >
         Salvar
       </v-btn>
-    </v-card-actions>
-  </div>
+    </template>
+  </CardLayout>
 </template>
 
 <script>
 import { mapMutations } from 'vuex';
 
+import CardLayout from '../../components/Layouts/CardLayout.vue';
+
 import api from '../../services/api';
 
 export default {
   name: 'DisciplinesForm',
+  components: {
+    CardLayout,
+  },
   data: () => ({
     title: null,
     errors: {},

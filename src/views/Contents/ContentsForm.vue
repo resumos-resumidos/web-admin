@@ -1,6 +1,19 @@
 <template>
-  <div>
-    <v-card-text>
+  <CardLayout>
+    <template #v-toolbar>
+      <v-toolbar-title>
+        Contéudos
+      </v-toolbar-title>
+      <v-spacer />
+      <v-btn
+        text
+        color="primary"
+        @click="$router.push('/contents')"
+      >
+        Voltar
+      </v-btn>
+    </template>
+    <template #v-card-text>
       <v-form @submit.prevent>
         <v-select
           v-model="disciplineId"
@@ -18,8 +31,8 @@
           @focus="errors.title = null"
         />
       </v-form>
-    </v-card-text>
-    <v-card-actions>
+    </template>
+    <template #v-card-actions>
       <v-btn
         text
         color="primary"
@@ -27,17 +40,22 @@
       >
         Salvar
       </v-btn>
-    </v-card-actions>
-  </div>
+    </template>
+  </CardLayout>
 </template>
 
 <script>
 import { mapMutations } from 'vuex';
 
+import CardLayout from '../../components/Layouts/CardLayout.vue';
+
 import api from '../../services/api';
 
 export default {
   name: 'ContentsForm',
+  components: {
+    CardLayout,
+  },
   data: () => ({
     disciplineId: null,
     title: null,

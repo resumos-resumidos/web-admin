@@ -1,6 +1,19 @@
 <template>
-  <div>
-    <v-card-text>
+  <CardLayout>
+    <template #v-toolbar>
+      <v-toolbar-title>
+        Resumos
+      </v-toolbar-title>
+      <v-spacer />
+      <v-btn
+        text
+        color="primary"
+        @click="$router.push('/summaries')"
+      >
+        Voltar
+      </v-btn>
+    </template>
+    <template #v-card-text>
       <v-form @submit.prevent>
         <v-select
           v-model="disciplineId"
@@ -33,8 +46,8 @@
           @click="errors.free = null"
         />
       </v-form>
-    </v-card-text>
-    <v-card-actions>
+    </template>
+    <template #v-card-actions>
       <v-btn
         text
         color="primary"
@@ -42,15 +55,20 @@
       >
         Salvar
       </v-btn>
-    </v-card-actions>
-  </div>
+    </template>
+  </CardLayout>
 </template>
 
 <script>
+import CardLayout from '../../components/Layouts/CardLayout.vue';
+
 import api from '../../services/api';
 
 export default {
   name: 'SummariesForm',
+  components: {
+    CardLayout,
+  },
   data: () => ({
     disciplineId: null,
     contentId: null,

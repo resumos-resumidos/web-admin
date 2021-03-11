@@ -1,8 +1,5 @@
 <template>
-  <AuthenticatedLayout
-    title="Contéudos"
-    route-path="/contents"
-  >
+  <AuthenticatedLayout>
     <router-view />
   </AuthenticatedLayout>
 </template>
