@@ -42,13 +42,10 @@
       </v-form>
     </template>
     <template #v-card-actions>
-      <v-btn
-        text
-        color="primary"
-        @click="saveSummary"
-      >
-        Salvar
-      </v-btn>
+      <ActionButton
+        label="Salvar"
+        @action="saveSummary"
+      />
     </template>
   </CardLayout>
 </template>
@@ -56,6 +53,7 @@
 <script>
 import { mapMutations } from 'vuex';
 
+import ActionButton from '../../components/Buttons/ActionButton.vue';
 import BackButton from '../../components/Buttons/BackButton.vue';
 import CardLayout from '../../components/Layouts/CardLayout.vue';
 
@@ -64,6 +62,7 @@ import api from '../../services/api';
 export default {
   name: 'SummariesForm',
   components: {
+    ActionButton,
     BackButton,
     CardLayout,
   },

@@ -29,13 +29,10 @@
         </v-form>
       </template>
       <template #v-card-actions>
-        <v-btn
-          text
-          color="primary"
-          @click="login"
-        >
-          Entrar
-        </v-btn>
+        <ActionButton
+          label="Entrar"
+          @action="login"
+        />
       </template>
     </CardLayout>
   </GuestLayout>
@@ -44,6 +41,7 @@
 <script>
 import { mapMutations } from 'vuex';
 
+import ActionButton from '../../components/Buttons/ActionButton.vue';
 import CardLayout from '../../components/Layouts/CardLayout.vue';
 import GuestLayout from '../../components/Layouts/GuestLayout.vue';
 
@@ -52,6 +50,7 @@ import api from '../../services/api';
 export default {
   name: 'Login',
   components: {
+    ActionButton,
     CardLayout,
     GuestLayout,
   },
