@@ -34,10 +34,14 @@
           </td>
           <td class="text-right">
             <EditButton :id="row.id" />
-            <DeleteButton
-              :id="row.id"
-              @destroy="destroy"
-            />
+            <v-btn
+              icon
+              @click="destroy(row.id)"
+            >
+              <v-icon>
+                mdi-delete
+              </v-icon>
+            </v-btn>
           </td>
         </tr>
       </tbody>
@@ -56,7 +60,6 @@
 import _get from 'lodash/get';
 import { mapMutations } from 'vuex';
 
-import DeleteButton from '../Buttons/DeleteButton.vue';
 import EditButton from '../Buttons/EditButton.vue';
 
 import api from '../../services/api';
@@ -64,7 +67,6 @@ import api from '../../services/api';
 export default {
   name: 'CrudTable',
   components: {
-    DeleteButton,
     EditButton,
   },
   props: {
