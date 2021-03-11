@@ -15,14 +15,7 @@
             md="6"
             lg="4"
           >
-            <v-card class="elevation-12">
-              <v-toolbar flat>
-                <v-toolbar-title>
-                  Resumos Resumidos
-                </v-toolbar-title>
-              </v-toolbar>
-              <slot />
-            </v-card>
+            <slot />
           </v-col>
         </v-row>
       </v-container>

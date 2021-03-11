@@ -1,7 +1,10 @@
 <template>
   <GuestLayout>
-    <div>
-      <v-card-text>
+    <CardLayout>
+      <template #v-toolbar-title>
+        Resumos Resumidos
+      </template>
+      <template #v-card-text>
         <v-form @submit.prevent>
           <v-text-field
             v-model="email"
@@ -22,8 +25,8 @@
             @focus="errors.password = null"
           />
         </v-form>
-      </v-card-text>
-      <v-card-actions>
+      </template>
+      <template #v-card-actions>
         <v-btn
           text
           color="primary"
@@ -31,14 +34,15 @@
         >
           Entrar
         </v-btn>
-      </v-card-actions>
-    </div>
+      </template>
+    </CardLayout>
   </GuestLayout>
 </template>
 
 <script>
 import { mapMutations } from 'vuex';
 
+import CardLayout from '../../components/Layouts/CardLayout.vue';
 import GuestLayout from '../../components/Layouts/GuestLayout.vue';
 
 import api from '../../services/api';
@@ -46,6 +50,7 @@ import api from '../../services/api';
 export default {
   name: 'Login',
   components: {
+    CardLayout,
     GuestLayout,
   },
   data: () => ({
