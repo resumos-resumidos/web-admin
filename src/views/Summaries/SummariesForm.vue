@@ -60,6 +60,8 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
+
 import CardLayout from '../../components/Layouts/CardLayout.vue';
 
 import api from '../../services/api';
@@ -92,6 +94,7 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(['HANDLE_SNACKBAR']),
     async getDisciplines() {
       try {
         const disciplines = await api.get('/disciplines');
