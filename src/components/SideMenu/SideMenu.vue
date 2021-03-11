@@ -7,7 +7,12 @@
       <v-app-bar-nav-icon @click="drawer = !drawer" />
 
       <v-toolbar-title>
-        Resumos Resumidos
+        <router-link
+          class="toolbar-title"
+          to="/"
+        >
+          Resumos Resumidos
+        </router-link>
       </v-toolbar-title>
     </v-app-bar>
 
@@ -63,3 +68,9 @@ export default {
   data: () => ({ drawer: null }),
 };
 </script>
+<style scoped>
+.toolbar-title {
+  color: inherit;
+  text-decoration: inherit;
+}
+</style>
