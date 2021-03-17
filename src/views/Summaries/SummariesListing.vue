@@ -6,11 +6,11 @@
       </v-toolbar-title>
     </template>
     <template #v-card-text>
-      <CrudTable
+      <DataTable
         :headers="headers"
+        :items="items"
         :message-when-no-records="messageWhenNoRecords"
         route-path="/summaries"
-        :rows="rows"
         @destroy="deleteSummary"
       />
     </template>
@@ -21,7 +21,7 @@
 import { mapMutations } from 'vuex';
 
 import CardLayout from '../../components/Layouts/CardLayout.vue';
-import CrudTable from '../../components/Tables/CrudTable.vue';
+import DataTable from '../../components/Tables/DataTable.vue';
 
 import api from '../../services/api';
 
@@ -29,17 +29,34 @@ export default {
   name: 'SummariesListing',
   components: {
     CardLayout,
-    CrudTable,
+    DataTable,
   },
   data: () => ({
     headers: [
-      'Disciplina',
-      'Contéudo',
-      'Resumo',
-      'Gratuito',
+      {
+        text: 'Disciplina',
+        value: 'discipline',
+      },
+      {
+        text: 'Contéudo',
+        value: 'content',
+      },
+      {
+        text: 'Resumo',
+        value: 'summary',
+      },
+      {
+        text: 'Gratuito',
+        value: 'free',
+      },
+      {
+        value: 'actions',
+        sortable: false,
+        align: 'right',
+      },
     ],
+    items: [],
     messageWhenNoRecords: 'Não existe nenhum resumo cadastrado',
-    rows: [],
   }),
   async created() {
     this.getSummaries();
@@ -50,14 +67,12 @@ export default {
       try {
         const summaries = await api.get('/summaries');
 
-        summaries.forEach((summary) => this.rows.push({
+        summaries.forEach((summary) => this.items.push({
           id: summary.id,
-          columns: [
-            summary.content.discipline.title,
-            summary.content.title,
-            summary.title,
-            summary.free ? 'Sim' : 'Não',
-          ],
+          discipline: summary.content.discipline.title,
+          content: summary.content.title,
+          summary: summary.title,
+          free: summary.free ? 'Sim' : 'Não',
         }));
       } catch (error) {
         this.HANDLE_SNACKBAR({ show: true, text: error });
@@ -67,7 +82,7 @@ export default {
       try {
         if (window.confirm('Tem certeza que deseja excluir este resumo?')) {
           await api.delete(`/summaries/${summaryId}`);
-          this.rows = this.rows.filter((row) => row.id !== summaryId);
+          this.items = this.items.filter((item) => item.id !== summaryId);
         }
       } catch (error) {
         this.HANDLE_SNACKBAR({ show: true, text: error });

@@ -6,11 +6,11 @@
       </v-toolbar-title>
     </template>
     <template #v-card-text>
-      <CrudTable
+      <DataTable
         :headers="headers"
+        :items="items"
         :message-when-no-records="messageWhenNoRecords"
         route-path="/disciplines"
-        :rows="rows"
         @destroy="deleteDiscipline"
       />
     </template>
@@ -21,7 +21,7 @@
 import { mapMutations } from 'vuex';
 
 import CardLayout from '../../components/Layouts/CardLayout.vue';
-import CrudTable from '../../components/Tables/CrudTable.vue';
+import DataTable from '../../components/Tables/DataTable.vue';
 
 import api from '../../services/api';
 
@@ -29,14 +29,22 @@ export default {
   name: 'DisciplinesListing',
   components: {
     CardLayout,
-    CrudTable,
+    DataTable,
   },
   data: () => ({
     headers: [
-      'Disciplina',
+      {
+        text: 'Disciplina',
+        value: 'discipline',
+      },
+      {
+        value: 'actions',
+        sortable: false,
+        align: 'right',
+      },
     ],
+    items: [],
     messageWhenNoRecords: 'Não existe nenhuma disciplina cadastrada',
-    rows: [],
   }),
   async created() {
     this.getDisciplines();
@@ -47,11 +55,9 @@ export default {
       try {
         const disciplines = await api.get('/disciplines');
 
-        disciplines.forEach((discipline) => this.rows.push({
+        disciplines.forEach((discipline) => this.items.push({
           id: discipline.id,
-          columns: [
-            discipline.title,
-          ],
+          discipline: discipline.title,
         }));
       } catch (error) {
         this.HANDLE_SNACKBAR({ show: true, text: error });
@@ -61,7 +67,7 @@ export default {
       try {
         if (window.confirm('Tem certeza que deseja excluir esta disciplina?')) {
           await api.delete(`/disciplines/${disciplineId}`);
-          this.rows = this.rows.filter((row) => row.id !== disciplineId);
+          this.items = this.items.filter((item) => item.id !== disciplineId);
         }
       } catch (error) {
         this.HANDLE_SNACKBAR({ show: true, text: error });
