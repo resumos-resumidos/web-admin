@@ -43,7 +43,7 @@
             </v-btn>
             <v-btn
               icon
-              @click="destroy(row.id)"
+              @click="$emit('destroy', row.id)"
             >
               <v-icon>
                 mdi-delete
@@ -52,7 +52,7 @@
           </td>
         </tr>
       </tbody>
-      <tfoot v-if="loaded && rows.length === 0">
+      <tfoot v-if="rows.length === 0">
         <tr class="text-center font-weight-light">
           <td :colspan="headers.length + 1">
             {{ messageWhenNoRecords }}
@@ -64,18 +64,9 @@
 </template>
 
 <script>
-import _get from 'lodash/get';
-import { mapMutations } from 'vuex';
-
-import api from '../../services/api';
-
 export default {
   name: 'CrudTable',
   props: {
-    columns: {
-      type: Array,
-      required: true,
-    },
     headers: {
       type: Array,
       required: true,
@@ -88,47 +79,9 @@ export default {
       type: String,
       required: true,
     },
-  },
-  data: () => ({
-    loaded: false,
-    rows: [],
-  }),
-  async created() {
-    this.index();
-  },
-  methods: {
-    ...mapMutations(['HANDLE_SNACKBAR']),
-    async index() {
-      try {
-        const records = await api.get(this.routePath);
-
-        records.forEach((record) => this.rows.push({
-          id: record.id,
-          columns: this.columns.map((column) => {
-            let value = _get(record, column);
-
-            if (typeof value === 'boolean') {
-              value = value ? 'Sim' : 'Não';
-            }
-
-            return value;
-          }),
-        }));
-
-        this.loaded = true;
-      } catch (error) {
-        this.HANDLE_SNACKBAR({ show: true, text: error });
-      }
-    },
-    async destroy(id) {
-      try {
-        if (window.confirm('Tem certeza que deseja excluir este registro?')) {
-          await api.delete(`${this.$route.path}/${id}`);
-          this.rows = this.rows.filter((row) => row.id !== id);
-        }
-      } catch (error) {
-        this.HANDLE_SNACKBAR({ show: true, text: error });
-      }
+    rows: {
+      type: Array,
+      required: true,
     },
   },
 };
