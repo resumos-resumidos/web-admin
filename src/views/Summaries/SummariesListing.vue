@@ -11,6 +11,7 @@
         :items="items"
         :message-when-no-records="messageWhenNoRecords"
         route-path="/summaries"
+        :sort-by="['summary']"
         @destroy="deleteSummary"
       />
     </template>

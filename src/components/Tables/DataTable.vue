@@ -4,6 +4,7 @@
     :items="items"
     :items-per-page="5"
     :no-data-text="messageWhenNoRecords"
+    :sort-by="sortBy"
   >
     <template v-slot:[`header.actions`]>
       <v-btn
@@ -55,6 +56,10 @@ export default {
     routePath: {
       type: String,
       required: true,
+    },
+    sortBy: {
+      type: Array,
+      default: () => [],
     },
   },
 };

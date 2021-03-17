@@ -11,6 +11,7 @@
         :items="items"
         :message-when-no-records="messageWhenNoRecords"
         route-path="/contents"
+        :sort-by="['content']"
         @destroy="deleteContent"
       />
     </template>
