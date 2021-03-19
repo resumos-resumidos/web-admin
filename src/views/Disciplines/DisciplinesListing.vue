@@ -4,6 +4,11 @@
       <v-toolbar-title>
         Disciplinas
       </v-toolbar-title>
+      <v-spacer />
+      <RouteButton
+        label="Adicionar"
+        route-path="/disciplines/create"
+      />
     </template>
     <template #v-card-text>
       <DataTable
@@ -21,6 +26,7 @@
 <script>
 import { mapMutations } from 'vuex';
 
+import RouteButton from '../../components/Buttons/RouteButton.vue';
 import CardLayout from '../../components/Layouts/CardLayout.vue';
 import DataTable from '../../components/Tables/DataTable.vue';
 
@@ -31,6 +37,7 @@ export default {
   components: {
     CardLayout,
     DataTable,
+    RouteButton,
   },
   data: () => ({
     headers: [
