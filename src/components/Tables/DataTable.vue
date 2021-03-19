@@ -13,6 +13,9 @@
       itemsPerPageText: 'Registros por página:',
       itemsPerPageOptions: [5, 10, 25],
     }"
+    :header-props="{
+      sortByText: 'Ordenar por',
+    }"
   >
     <template v-slot:[`item.actions`]="{ item }">
       <v-btn
