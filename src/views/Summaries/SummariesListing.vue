@@ -66,27 +66,27 @@ export default {
   },
   methods: {
     ...mapMutations(['HANDLE_SNACKBAR']),
-    async getSummaries() {
-      try {
-        const summaries = await api.get('/summaries');
-
-        summaries.forEach((summary) => this.items.push({
-          id: summary.id,
-          discipline: summary.content.discipline.title,
-          content: summary.content.title,
-          summary: summary.title,
-          free: summary.free ? 'Sim' : 'Não',
-        }));
-      } catch (error) {
-        this.HANDLE_SNACKBAR({ show: true, text: error });
-      }
-    },
     async deleteSummary(summaryId) {
       try {
         if (window.confirm('Tem certeza que deseja excluir este resumo?')) {
           await api.delete(`/summaries/${summaryId}`);
           this.items = this.items.filter((item) => item.id !== summaryId);
         }
+      } catch (error) {
+        this.HANDLE_SNACKBAR({ show: true, text: error });
+      }
+    },
+    async getSummaries() {
+      try {
+        const summaries = await api.get('/summaries');
+
+        summaries.forEach((summary) => this.items.push({
+          content: summary.content.title,
+          discipline: summary.content.discipline.title,
+          free: summary.free ? 'Sim' : 'Não',
+          id: summary.id,
+          summary: summary.title,
+        }));
       } catch (error) {
         this.HANDLE_SNACKBAR({ show: true, text: error });
       }

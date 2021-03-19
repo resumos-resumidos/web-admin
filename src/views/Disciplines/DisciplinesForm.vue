@@ -43,12 +43,12 @@ export default {
   name: 'DisciplinesForm',
   components: {
     ActionButton,
-    RouteButton,
     CardLayout,
+    RouteButton,
   },
   data: () => ({
-    title: null,
     errors: {},
+    title: null,
   }),
   computed: {
     disciplineId() {

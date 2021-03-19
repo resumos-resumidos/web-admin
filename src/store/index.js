@@ -4,11 +4,9 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {
-    snackbar: {
-      show: false,
-      text: null,
-    },
+  actions: {
+  },
+  modules: {
   },
   mutations: {
     HANDLE_SNACKBAR: (state, { show, text }) => {
@@ -16,8 +14,10 @@ export default new Vuex.Store({
       state.snackbar.text = text;
     },
   },
-  actions: {
-  },
-  modules: {
+  state: {
+    snackbar: {
+      show: false,
+      text: null,
+    },
   },
 });

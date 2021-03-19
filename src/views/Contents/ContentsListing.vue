@@ -58,25 +58,25 @@ export default {
   },
   methods: {
     ...mapMutations(['HANDLE_SNACKBAR']),
-    async getContents() {
-      try {
-        const contents = await api.get('/contents');
-
-        contents.forEach((content) => this.items.push({
-          id: content.id,
-          discipline: content.discipline.title,
-          content: content.title,
-        }));
-      } catch (error) {
-        this.HANDLE_SNACKBAR({ show: true, text: error });
-      }
-    },
     async deleteContent(contentId) {
       try {
         if (window.confirm('Tem certeza que deseja excluir este conteúdo?')) {
           await api.delete(`/contents/${contentId}`);
           this.items = this.items.filter((item) => item.id !== contentId);
         }
+      } catch (error) {
+        this.HANDLE_SNACKBAR({ show: true, text: error });
+      }
+    },
+    async getContents() {
+      try {
+        const contents = await api.get('/contents');
+
+        contents.forEach((content) => this.items.push({
+          content: content.title,
+          discipline: content.discipline.title,
+          id: content.id,
+        }));
       } catch (error) {
         this.HANDLE_SNACKBAR({ show: true, text: error });
       }

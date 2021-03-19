@@ -56,9 +56,9 @@ export default {
   },
   data: () => ({
     email: null,
+    errors: {},
     password: null,
     showPassword: false,
-    errors: {},
   }),
   methods: {
     ...mapMutations(['HANDLE_SNACKBAR']),

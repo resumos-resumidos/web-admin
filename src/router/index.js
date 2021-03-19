@@ -17,72 +17,72 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/',
     component: Home,
+    path: '/',
   },
   {
-    path: '/login',
     component: Login,
+    path: '/login',
   },
   {
-    path: '/disciplines',
-    component: Disciplines,
     children: [
       {
-        path: '',
         component: DisciplinesListing,
+        path: '',
       },
       {
+        component: DisciplinesForm,
         path: 'create',
-        component: DisciplinesForm,
       },
       {
-        path: 'edit/:id',
         component: DisciplinesForm,
+        path: 'edit/:id',
       },
     ],
+    component: Disciplines,
+    path: '/disciplines',
   },
   {
-    path: '/contents',
-    component: Contents,
     children: [
       {
-        path: '',
         component: ContentsListing,
+        path: '',
       },
       {
+        component: ContentsForm,
         path: 'create',
-        component: ContentsForm,
       },
       {
-        path: 'edit/:id',
         component: ContentsForm,
+        path: 'edit/:id',
       },
     ],
+    component: Contents,
+    path: '/contents',
   },
   {
-    path: '/summaries',
-    component: Summaries,
     children: [
       {
-        path: '',
         component: SummariesListing,
+        path: '',
       },
       {
+        component: SummariesForm,
         path: 'create',
-        component: SummariesForm,
       },
       {
-        path: 'edit/:id',
         component: SummariesForm,
+        path: 'edit/:id',
       },
     ],
+    component: Summaries,
+    path: '/summaries',
   },
 ];
 
 const router = new VueRouter({
-  mode: 'history',
   base: process.env.BASE_URL,
+  mode: 'history',
   routes,
 });
 

@@ -54,24 +54,24 @@ export default {
   },
   methods: {
     ...mapMutations(['HANDLE_SNACKBAR']),
-    async getDisciplines() {
-      try {
-        const disciplines = await api.get('/disciplines');
-
-        disciplines.forEach((discipline) => this.items.push({
-          id: discipline.id,
-          discipline: discipline.title,
-        }));
-      } catch (error) {
-        this.HANDLE_SNACKBAR({ show: true, text: error });
-      }
-    },
     async deleteDiscipline(disciplineId) {
       try {
         if (window.confirm('Tem certeza que deseja excluir esta disciplina?')) {
           await api.delete(`/disciplines/${disciplineId}`);
           this.items = this.items.filter((item) => item.id !== disciplineId);
         }
+      } catch (error) {
+        this.HANDLE_SNACKBAR({ show: true, text: error });
+      }
+    },
+    async getDisciplines() {
+      try {
+        const disciplines = await api.get('/disciplines');
+
+        disciplines.forEach((discipline) => this.items.push({
+          discipline: discipline.title,
+          id: discipline.id,
+        }));
       } catch (error) {
         this.HANDLE_SNACKBAR({ show: true, text: error });
       }

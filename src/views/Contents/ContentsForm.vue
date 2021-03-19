@@ -51,14 +51,14 @@ export default {
   name: 'ContentsForm',
   components: {
     ActionButton,
-    RouteButton,
     CardLayout,
+    RouteButton,
   },
   data: () => ({
     disciplineId: null,
-    title: null,
     disciplines: [],
     errors: {},
+    title: null,
   }),
   computed: {
     contentId() {
@@ -74,27 +74,27 @@ export default {
   },
   methods: {
     ...mapMutations(['HANDLE_SNACKBAR']),
-    async getDisciplines() {
-      try {
-        const disciplines = await api.get('/disciplines');
-
-        if (disciplines.length > 0) {
-          this.disciplines.push({ value: null, text: '' });
-          disciplines.forEach((discipline) => this.disciplines.push({
-            value: discipline.id,
-            text: discipline.title,
-          }));
-        }
-      } catch (error) {
-        this.HANDLE_SNACKBAR({ show: true, text: error });
-      }
-    },
     async getContent() {
       try {
         const content = await api.get(`/contents/${this.contentId}`);
 
         this.disciplineId = content.discipline_id;
         this.title = content.title;
+      } catch (error) {
+        this.HANDLE_SNACKBAR({ show: true, text: error });
+      }
+    },
+    async getDisciplines() {
+      try {
+        const disciplines = await api.get('/disciplines');
+
+        if (disciplines.length > 0) {
+          this.disciplines.push({ text: '', value: null });
+          disciplines.forEach((discipline) => this.disciplines.push({
+            text: discipline.title,
+            value: discipline.id,
+          }));
+        }
       } catch (error) {
         this.HANDLE_SNACKBAR({ show: true, text: error });
       }

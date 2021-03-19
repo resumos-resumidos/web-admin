@@ -66,18 +66,18 @@ export default {
   name: 'SummariesForm',
   components: {
     ActionButton,
-    RouteButton,
     CardLayout,
+    RouteButton,
   },
   data: () => ({
-    disciplineId: null,
     contentId: null,
-    title: null,
-    free: false,
-    disciplines: [],
-    contents: [],
-    errors: {},
     contentIdHint: 'Selecione uma disciplina para buscar seus respectivos conteúdos',
+    contents: [],
+    disciplineId: null,
+    disciplines: [],
+    errors: {},
+    free: false,
+    title: null,
   }),
   computed: {
     summaryId() {
@@ -93,15 +93,35 @@ export default {
   },
   methods: {
     ...mapMutations(['HANDLE_SNACKBAR']),
+    async getContentsByDiscipline() {
+      try {
+        this.contentId = null;
+        this.contents = [];
+
+        if (this.disciplineId !== null) {
+          const discipline = await api.get(`/disciplines/${this.disciplineId}`);
+
+          if (discipline.contents.length > 0) {
+            this.contents.push({ text: '', value: null });
+            discipline.contents.forEach((content) => this.contents.push({
+              text: content.title,
+              value: content.id,
+            }));
+          }
+        }
+      } catch (error) {
+        this.HANDLE_SNACKBAR({ show: true, text: error });
+      }
+    },
     async getDisciplines() {
       try {
         const disciplines = await api.get('/disciplines');
 
         if (disciplines.length > 0) {
-          this.disciplines.push({ value: null, text: '' });
+          this.disciplines.push({ text: '', value: null });
           disciplines.forEach((discipline) => this.disciplines.push({
-            value: discipline.id,
             text: discipline.title,
+            value: discipline.id,
           }));
         }
       } catch (error) {
@@ -123,34 +143,14 @@ export default {
         this.HANDLE_SNACKBAR({ show: true, text: error });
       }
     },
-    async getContentsByDiscipline() {
-      try {
-        this.contentId = null;
-        this.contents = [];
-
-        if (this.disciplineId !== null) {
-          const discipline = await api.get(`/disciplines/${this.disciplineId}`);
-
-          if (discipline.contents.length > 0) {
-            this.contents.push({ value: null, text: '' });
-            discipline.contents.forEach((content) => this.contents.push({
-              value: content.id,
-              text: content.title,
-            }));
-          }
-        }
-      } catch (error) {
-        this.HANDLE_SNACKBAR({ show: true, text: error });
-      }
-    },
     async saveSummary() {
       try {
         this.errors = {};
 
         const data = {
           content_id: this.contentId,
-          title: this.title,
           free: this.free,
+          title: this.title,
         };
 
         if (this.summaryId) {
