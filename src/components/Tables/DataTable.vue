@@ -5,6 +5,10 @@
     :items-per-page="5"
     :no-data-text="messageWhenNoRecords"
     :sort-by="sortBy"
+    :footer-props="{
+      itemsPerPageText: 'Registros por página:',
+      itemsPerPageOptions: [5, 10, 25],
+    }"
   >
     <template v-slot:[`header.actions`]>
       <v-btn
@@ -33,6 +37,9 @@
           mdi-delete
         </v-icon>
       </v-btn>
+    </template>
+    <template v-slot:[`footer.page-text`]="props">
+      {{ props.pageStart }}-{{ props.pageStop }} de {{ props.itemsLength }}
     </template>
   </v-data-table>
 </template>
