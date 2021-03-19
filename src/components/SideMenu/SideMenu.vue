@@ -68,6 +68,7 @@ export default {
   data: () => ({ drawer: null }),
 };
 </script>
+
 <style scoped>
 .toolbar-title {
   color: inherit;

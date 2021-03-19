@@ -35,6 +35,7 @@ module.exports = {
       shouldMatchCase: true,
     }],
     'vue/order-in-components': ['error'],
+    'vue/padding-line-between-blocks': ['error'],
     'vue/sort-keys': ['error'],
   },
 };
