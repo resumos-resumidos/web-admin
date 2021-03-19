@@ -45,11 +45,6 @@ export default {
         text: 'Disciplina',
         value: 'discipline',
       },
-      {
-        value: 'actions',
-        sortable: false,
-        align: 'right',
-      },
     ],
     items: [],
     messageWhenNoRecords: 'Não existe nenhuma disciplina cadastrada',

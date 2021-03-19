@@ -49,11 +49,6 @@ export default {
         text: 'Contéudo',
         value: 'content',
       },
-      {
-        value: 'actions',
-        sortable: false,
-        align: 'right',
-      },
     ],
     items: [],
     messageWhenNoRecords: 'Não existe nenhum contéudo cadastrado',

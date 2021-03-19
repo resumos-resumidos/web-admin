@@ -57,11 +57,6 @@ export default {
         text: 'Gratuito',
         value: 'free',
       },
-      {
-        value: 'actions',
-        sortable: false,
-        align: 'right',
-      },
     ],
     items: [],
     messageWhenNoRecords: 'Não existe nenhum resumo cadastrado',

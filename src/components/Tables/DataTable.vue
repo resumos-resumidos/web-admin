@@ -1,6 +1,10 @@
 <template>
   <v-data-table
-    :headers="headers"
+    :headers="[...headers, {
+      value: 'actions',
+      sortable: false,
+      align: 'right',
+    }]"
     :items="items"
     :items-per-page="5"
     :no-data-text="messageWhenNoRecords"
