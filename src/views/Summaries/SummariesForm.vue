@@ -5,7 +5,10 @@
         Resumos
       </v-toolbar-title>
       <v-spacer />
-      <BackButton route-path="/summaries" />
+      <RouteButton
+        label="Voltar"
+        route-path="/summaries"
+      />
     </template>
     <template #v-card-text>
       <v-form @submit.prevent>
@@ -54,7 +57,7 @@
 import { mapMutations } from 'vuex';
 
 import ActionButton from '../../components/Buttons/ActionButton.vue';
-import BackButton from '../../components/Buttons/BackButton.vue';
+import RouteButton from '../../components/Buttons/RouteButton.vue';
 import CardLayout from '../../components/Layouts/CardLayout.vue';
 
 import api from '../../services/api';
@@ -63,7 +66,7 @@ export default {
   name: 'SummariesForm',
   components: {
     ActionButton,
-    BackButton,
+    RouteButton,
     CardLayout,
   },
   data: () => ({
