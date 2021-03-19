@@ -14,16 +14,6 @@
       itemsPerPageOptions: [5, 10, 25],
     }"
   >
-    <template v-slot:[`header.actions`]>
-      <v-btn
-        icon
-        :to="`${routePath}/create`"
-      >
-        <v-icon>
-          mdi-plus-circle-outline
-        </v-icon>
-      </v-btn>
-    </template>
     <template v-slot:[`item.actions`]="{ item }">
       <v-btn
         icon
