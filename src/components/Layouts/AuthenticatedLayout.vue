@@ -4,8 +4,8 @@
     <v-main>
       <v-container fluid>
         <v-row
-          no-gutters
           justify="center"
+          no-gutters
         >
           <v-col cols="12">
             <slot />

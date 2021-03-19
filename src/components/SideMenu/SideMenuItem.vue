@@ -1,7 +1,7 @@
 <template>
   <v-list-item
-    :to="to"
     link
+    :to="to"
   >
     <v-list-item-action>
       <v-icon>{{ icon }}</v-icon>

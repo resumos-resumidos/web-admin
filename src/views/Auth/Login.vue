@@ -10,21 +10,21 @@
         <v-form @submit.prevent>
           <v-text-field
             v-model="email"
-            type="email"
-            label="E-mail"
             :error-messages="errors.email"
-            @keydown.enter="login"
+            label="E-mail"
+            type="email"
             @focus="errors.email = null"
+            @keydown.enter="login"
           />
           <v-text-field
             v-model="password"
-            :type="showPassword ? 'text' : 'password'"
             :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-            label="Senha"
             :error-messages="errors.password"
+            label="Senha"
+            :type="showPassword ? 'text' : 'password'"
             @click:append="showPassword = !showPassword"
-            @keydown.enter="login"
             @focus="errors.password = null"
+            @keydown.enter="login"
           />
         </v-form>
       </template>

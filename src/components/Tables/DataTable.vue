@@ -1,5 +1,12 @@
 <template>
   <v-data-table
+    :footer-props="{
+      itemsPerPageText: 'Registros por página:',
+      itemsPerPageOptions: [5, 10, 25],
+    }"
+    :header-props="{
+      sortByText: 'Ordenar por',
+    }"
     :headers="[...headers, {
       value: 'actions',
       sortable: false,
@@ -9,13 +16,6 @@
     :items-per-page="5"
     :no-data-text="messageWhenNoRecords"
     :sort-by="sortBy"
-    :footer-props="{
-      itemsPerPageText: 'Registros por página:',
-      itemsPerPageOptions: [5, 10, 25],
-    }"
-    :header-props="{
-      sortByText: 'Ordenar por',
-    }"
   >
     <template v-slot:[`item.actions`]="{ item }">
       <v-btn

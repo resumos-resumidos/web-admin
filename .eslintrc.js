@@ -32,5 +32,8 @@ module.exports = {
       },
     ],
     'no-alert': 'off',
+    'vue/attributes-order': ['error', {
+      alphabetical: true,
+    }],
   },
 };

@@ -1,7 +1,7 @@
 <template>
   <v-btn
-    text
     color="primary"
+    text
     @click="$emit('action')"
   >
     {{ label }}

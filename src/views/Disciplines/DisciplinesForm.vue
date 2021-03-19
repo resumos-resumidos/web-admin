@@ -14,10 +14,10 @@
       <v-form @submit.prevent>
         <v-text-field
           v-model="title"
-          label="Disciplina"
           :error-messages="errors.title"
-          @keydown.enter="saveDiscipline"
+          label="Disciplina"
           @focus="errors.title = null"
+          @keydown.enter="saveDiscipline"
         />
       </v-form>
     </template>

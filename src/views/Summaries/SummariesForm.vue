@@ -21,25 +21,25 @@
         />
         <v-select
           v-model="contentId"
+          :disabled="disciplineId === null"
+          :error-messages="errors.content_id"
           :items="contents"
           label="Conteúdo"
-          :error-messages="errors.content_id"
-          no-data-text="Não existe nenhum contéudo cadastrado para esta disciplina"
-          :disabled="disciplineId === null"
           :messages="disciplineId === null ? contentIdHint : null"
+          no-data-text="Não existe nenhum contéudo cadastrado para esta disciplina"
           @focus="errors.content_id = null"
         />
         <v-text-field
           v-model="title"
-          label="Resumo"
           :error-messages="errors.title"
-          @keydown.enter="saveSummary"
+          label="Resumo"
           @focus="errors.title = null"
+          @keydown.enter="saveSummary"
         />
         <v-checkbox
           v-model="free"
-          label="Gratuito"
           :error-messages="errors.free"
+          label="Gratuito"
           @click="errors.free = null"
         />
       </v-form>

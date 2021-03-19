@@ -14,18 +14,18 @@
       <v-form @submit.prevent>
         <v-select
           v-model="disciplineId"
+          :error-messages="errors.discipline_id"
           :items="disciplines"
           label="Disciplina"
-          :error-messages="errors.discipline_id"
           no-data-text="Não existe nenhuma disciplina cadastrada"
           @focus="errors.discipline_id = null"
         />
         <v-text-field
           v-model="title"
-          label="Conteúdo"
           :error-messages="errors.title"
-          @keydown.enter="saveContent"
+          label="Conteúdo"
           @focus="errors.title = null"
+          @keydown.enter="saveContent"
         />
       </v-form>
     </template>
