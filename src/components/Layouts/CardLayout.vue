@@ -9,9 +9,12 @@
     <v-card-text>
       <slot name="cardText" />
     </v-card-text>
-    <v-card-actions>
-      <slot name="cardActions" />
-    </v-card-actions>
+    <template v-if="!!$slots.cardActions">
+      <v-divider />
+      <v-card-actions>
+        <slot name="cardActions" />
+      </v-card-actions>
+    </template>
   </v-card>
 </template>
 
