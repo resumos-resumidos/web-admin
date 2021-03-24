@@ -1,19 +1,12 @@
 <template>
   <v-data-table
-    :footer-props="{
-      itemsPerPageText: 'Registros por página:',
-      itemsPerPageOptions: [5, 10, 25],
-    }"
-    :header-props="{
-      sortByText: 'Ordenar por',
-    }"
-    :headers="[...headers, {
-      value: 'actions',
-      sortable: false,
-      align: 'right',
-    }]"
+    :footer-props="footerProps"
+    :header-props="headerProps"
+    :headers="[...headers, actionsHeader]"
     :items="items"
     :items-per-page="5"
+    :loading="loading"
+    loading-text="Carregando..."
     :no-data-text="messageWhenNoRecords"
     :sort-by="sortBy"
   >
@@ -53,6 +46,10 @@ export default {
       type: Array,
       required: true,
     },
+    loading: {
+      type: Boolean,
+      required: true,
+    },
     messageWhenNoRecords: {
       type: String,
       required: true,
@@ -66,5 +63,19 @@ export default {
       default: () => [],
     },
   },
+  data: () => ({
+    actionsHeader: {
+      align: 'right',
+      sortable: false,
+      value: 'actions',
+    },
+    footerProps: {
+      itemsPerPageOptions: [5, 10, 25],
+      itemsPerPageText: '',
+    },
+    headerProps: {
+      sortByText: 'Ordenar por',
+    },
+  }),
 };
 </script>

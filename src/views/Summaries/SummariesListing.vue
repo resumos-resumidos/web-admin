@@ -14,6 +14,7 @@
       <DataTable
         :headers="headers"
         :items="items"
+        :loading="loading"
         :message-when-no-records="messageWhenNoRecords"
         route-path="/summaries"
         :sort-by="['summary']"
@@ -59,6 +60,7 @@ export default {
       },
     ],
     items: [],
+    loading: true,
     messageWhenNoRecords: 'Não existe nenhum resumo cadastrado',
   }),
   async created() {
@@ -87,6 +89,8 @@ export default {
           id: summary.id,
           summary: summary.title,
         }));
+
+        this.loading = false;
       } catch (error) {
         this.HANDLE_SNACKBAR({ show: true, text: error });
       }

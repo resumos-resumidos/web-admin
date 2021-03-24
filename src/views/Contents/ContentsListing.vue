@@ -14,6 +14,7 @@
       <DataTable
         :headers="headers"
         :items="items"
+        :loading="loading"
         :message-when-no-records="messageWhenNoRecords"
         route-path="/contents"
         :sort-by="['content']"
@@ -51,6 +52,7 @@ export default {
       },
     ],
     items: [],
+    loading: true,
     messageWhenNoRecords: 'Não existe nenhum contéudo cadastrado',
   }),
   async created() {
@@ -77,6 +79,8 @@ export default {
           discipline: content.discipline.title,
           id: content.id,
         }));
+
+        this.loading = false;
       } catch (error) {
         this.HANDLE_SNACKBAR({ show: true, text: error });
       }
