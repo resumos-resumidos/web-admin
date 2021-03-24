@@ -1,5 +1,8 @@
 <template>
-  <v-card class="elevation-12">
+  <v-card
+    class="elevation-12"
+    :loading="loading"
+  >
     <v-toolbar flat>
       <slot name="v-toolbar" />
     </v-toolbar>
@@ -15,5 +18,11 @@
 <script>
 export default {
   name: 'CardLayout',
+  props: {
+    loading: {
+      type: Boolean,
+      default: false,
+    },
+  },
 };
 </script>
