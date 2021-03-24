@@ -1,12 +1,12 @@
 <template>
   <GuestLayout>
     <CardLayout>
-      <template #v-toolbar>
+      <template #toolbar>
         <v-toolbar-title>
           Resumos Resumidos
         </v-toolbar-title>
       </template>
-      <template #v-card-text>
+      <template #cardText>
         <v-form @submit.prevent>
           <v-text-field
             v-model="email"
@@ -28,7 +28,7 @@
           />
         </v-form>
       </template>
-      <template #v-card-actions>
+      <template #cardActions>
         <ActionButton
           label="Entrar"
           @action="login"

@@ -1,6 +1,6 @@
 <template>
   <CardLayout>
-    <template #v-toolbar>
+    <template #toolbar>
       <v-toolbar-title>
         Contéudos
       </v-toolbar-title>
@@ -10,7 +10,7 @@
         route-path="/contents/create"
       />
     </template>
-    <template #v-card-text>
+    <template #cardText>
       <DataTable
         :headers="headers"
         :items="items"

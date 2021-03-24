@@ -1,6 +1,6 @@
 <template>
   <CardLayout>
-    <template #v-toolbar>
+    <template #toolbar>
       <v-toolbar-title>
         Disciplinas
       </v-toolbar-title>
@@ -10,7 +10,7 @@
         route-path="/disciplines"
       />
     </template>
-    <template #v-card-text>
+    <template #cardText>
       <v-form @submit.prevent>
         <v-text-field
           v-model="title"
@@ -21,7 +21,7 @@
         />
       </v-form>
     </template>
-    <template #v-card-actions>
+    <template #cardActions>
       <ActionButton
         label="Salvar"
         @action="saveDiscipline"

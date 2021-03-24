@@ -4,13 +4,13 @@
     :loading="loading"
   >
     <v-toolbar flat>
-      <slot name="v-toolbar" />
+      <slot name="toolbar" />
     </v-toolbar>
     <v-card-text>
-      <slot name="v-card-text" />
+      <slot name="cardText" />
     </v-card-text>
     <v-card-actions>
-      <slot name="v-card-actions" />
+      <slot name="cardActions" />
     </v-card-actions>
   </v-card>
 </template>

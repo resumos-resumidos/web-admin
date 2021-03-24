@@ -8,12 +8,12 @@
         md="4"
       >
         <CardLayout :loading="loading">
-          <template #v-toolbar>
+          <template #toolbar>
             <v-toolbar-title>
               {{ card.title }}
             </v-toolbar-title>
           </template>
-          <template #v-card-text>
+          <template #cardText>
             <v-skeleton-loader
               v-if="loading"
               type="heading"
@@ -25,7 +25,7 @@
               {{ card.text }}
             </span>
           </template>
-          <template #v-card-actions>
+          <template #cardActions>
             <RouteButton
               :disabled="loading"
               label="Visualizar"

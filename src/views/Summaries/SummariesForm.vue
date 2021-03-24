@@ -1,6 +1,6 @@
 <template>
   <CardLayout>
-    <template #v-toolbar>
+    <template #toolbar>
       <v-toolbar-title>
         Resumos
       </v-toolbar-title>
@@ -10,7 +10,7 @@
         route-path="/summaries"
       />
     </template>
-    <template #v-card-text>
+    <template #cardText>
       <v-form @submit.prevent>
         <v-select
           v-model="disciplineId"
@@ -44,7 +44,7 @@
         />
       </v-form>
     </template>
-    <template #v-card-actions>
+    <template #cardActions>
       <ActionButton
         label="Salvar"
         @action="saveSummary"
