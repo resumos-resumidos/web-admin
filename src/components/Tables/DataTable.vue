@@ -8,8 +8,20 @@
     :loading="loading"
     loading-text="Carregando..."
     :no-data-text="messageWhenNoRecords"
+    :no-results-text="noResultsText"
+    :search="search"
     :sort-by="sortBy"
   >
+    <template v-slot:top>
+      <v-text-field
+        v-model="search"
+        append-icon="mdi-magnify"
+        class="mb-2"
+        hide-details
+        label="Pesquisar"
+        single-line
+      />
+    </template>
     <template v-slot:[`item.actions`]="{ item }">
       <v-btn
         icon
@@ -76,6 +88,12 @@ export default {
     headerProps: {
       sortByText: 'Ordenar por',
     },
+    search: '',
   }),
+  computed: {
+    noResultsText() {
+      return `Nenhum resultado encontrado para "${this.search}"`;
+    },
+  },
 };
 </script>
