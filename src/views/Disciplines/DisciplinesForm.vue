@@ -1,33 +1,35 @@
 <template>
-  <CardLayout>
-    <template #toolbar>
-      <v-toolbar-title>
-        Disciplinas
-      </v-toolbar-title>
-      <v-spacer />
-      <RouteButton
-        label="Voltar"
-        route-path="/disciplines"
-      />
-    </template>
-    <template #cardText>
-      <v-form @submit.prevent>
-        <v-text-field
-          v-model="title"
-          :error-messages="errors.title"
-          label="Disciplina"
-          @focus="errors.title = null"
-          @keydown.enter="saveDiscipline"
+  <AuthenticatedLayout>
+    <CardLayout>
+      <template #toolbar>
+        <v-toolbar-title>
+          Disciplinas
+        </v-toolbar-title>
+        <v-spacer />
+        <RouteButton
+          label="Voltar"
+          route-path="/disciplines"
         />
-      </v-form>
-    </template>
-    <template #cardActions>
-      <ActionButton
-        label="Salvar"
-        @action="saveDiscipline"
-      />
-    </template>
-  </CardLayout>
+      </template>
+      <template #cardText>
+        <v-form @submit.prevent>
+          <v-text-field
+            v-model="title"
+            :error-messages="errors.title"
+            label="Disciplina"
+            @focus="errors.title = null"
+            @keydown.enter="saveDiscipline"
+          />
+        </v-form>
+      </template>
+      <template #cardActions>
+        <ActionButton
+          label="Salvar"
+          @action="saveDiscipline"
+        />
+      </template>
+    </CardLayout>
+  </AuthenticatedLayout>
 </template>
 
 <script>
@@ -35,6 +37,7 @@ import { mapMutations } from 'vuex';
 
 import ActionButton from '../../components/Buttons/ActionButton.vue';
 import RouteButton from '../../components/Buttons/RouteButton.vue';
+import AuthenticatedLayout from '../../components/Layouts/AuthenticatedLayout.vue';
 import CardLayout from '../../components/Layouts/CardLayout.vue';
 
 import api from '../../services/api';
@@ -43,6 +46,7 @@ export default {
   name: 'DisciplinesForm',
   components: {
     ActionButton,
+    AuthenticatedLayout,
     CardLayout,
     RouteButton,
   },

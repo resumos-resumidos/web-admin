@@ -41,11 +41,11 @@
 <script>
 import { mapMutations } from 'vuex';
 
-import RouteButton from '../components/Buttons/RouteButton.vue';
-import AuthenticatedLayout from '../components/Layouts/AuthenticatedLayout.vue';
-import CardLayout from '../components/Layouts/CardLayout.vue';
+import RouteButton from '../../components/Buttons/RouteButton.vue';
+import AuthenticatedLayout from '../../components/Layouts/AuthenticatedLayout.vue';
+import CardLayout from '../../components/Layouts/CardLayout.vue';
 
-import api from '../services/api';
+import api from '../../services/api';
 
 export default {
   name: 'Home',

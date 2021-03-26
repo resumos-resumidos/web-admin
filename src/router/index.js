@@ -2,14 +2,11 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 
 import Login from '../views/Auth/Login.vue';
-import Contents from '../views/Contents/Contents.vue';
 import ContentsForm from '../views/Contents/ContentsForm.vue';
 import ContentsListing from '../views/Contents/ContentsListing.vue';
-import Disciplines from '../views/Disciplines/Disciplines.vue';
 import DisciplinesForm from '../views/Disciplines/DisciplinesForm.vue';
 import DisciplinesListing from '../views/Disciplines/DisciplinesListing.vue';
-import Home from '../views/Home.vue';
-import Summaries from '../views/Summaries/Summaries.vue';
+import Home from '../views/Home/Home.vue';
 import SummariesForm from '../views/Summaries/SummariesForm.vue';
 import SummariesListing from '../views/Summaries/SummariesListing.vue';
 
@@ -25,58 +22,40 @@ const routes = [
     path: '/login',
   },
   {
-    children: [
-      {
-        component: DisciplinesListing,
-        path: '',
-      },
-      {
-        component: DisciplinesForm,
-        path: 'create',
-      },
-      {
-        component: DisciplinesForm,
-        path: 'edit/:id',
-      },
-    ],
-    component: Disciplines,
+    component: DisciplinesListing,
     path: '/disciplines',
   },
   {
-    children: [
-      {
-        component: ContentsListing,
-        path: '',
-      },
-      {
-        component: ContentsForm,
-        path: 'create',
-      },
-      {
-        component: ContentsForm,
-        path: 'edit/:id',
-      },
-    ],
-    component: Contents,
+    component: DisciplinesForm,
+    path: '/disciplines/create',
+  },
+  {
+    component: DisciplinesForm,
+    path: '/disciplines/edit/:id',
+  },
+  {
+    component: ContentsListing,
     path: '/contents',
   },
   {
-    children: [
-      {
-        component: SummariesListing,
-        path: '',
-      },
-      {
-        component: SummariesForm,
-        path: 'create',
-      },
-      {
-        component: SummariesForm,
-        path: 'edit/:id',
-      },
-    ],
-    component: Summaries,
+    component: ContentsForm,
+    path: '/contents/create',
+  },
+  {
+    component: ContentsForm,
+    path: '/contents/edit/:id',
+  },
+  {
+    component: SummariesListing,
     path: '/summaries',
+  },
+  {
+    component: SummariesForm,
+    path: '/summaries/create',
+  },
+  {
+    component: SummariesForm,
+    path: '/summaries/edit/:id',
   },
 ];
 

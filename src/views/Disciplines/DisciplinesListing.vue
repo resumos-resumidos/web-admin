@@ -1,33 +1,36 @@
 <template>
-  <CardLayout>
-    <template #toolbar>
-      <v-toolbar-title>
-        Disciplinas
-      </v-toolbar-title>
-      <v-spacer />
-      <RouteButton
-        label="Adicionar"
-        route-path="/disciplines/create"
-      />
-    </template>
-    <template #cardText>
-      <DataTable
-        :headers="headers"
-        :items="items"
-        :loading="loading"
-        :message-when-no-records="messageWhenNoRecords"
-        route-path="/disciplines"
-        :sort-by="['discipline']"
-        @destroy="deleteDiscipline"
-      />
-    </template>
-  </CardLayout>
+  <AuthenticatedLayout>
+    <CardLayout>
+      <template #toolbar>
+        <v-toolbar-title>
+          Disciplinas
+        </v-toolbar-title>
+        <v-spacer />
+        <RouteButton
+          label="Adicionar"
+          route-path="/disciplines/create"
+        />
+      </template>
+      <template #cardText>
+        <DataTable
+          :headers="headers"
+          :items="items"
+          :loading="loading"
+          :message-when-no-records="messageWhenNoRecords"
+          route-path="/disciplines"
+          :sort-by="['discipline']"
+          @destroy="deleteDiscipline"
+        />
+      </template>
+    </CardLayout>
+  </AuthenticatedLayout>
 </template>
 
 <script>
 import { mapMutations } from 'vuex';
 
 import RouteButton from '../../components/Buttons/RouteButton.vue';
+import AuthenticatedLayout from '../../components/Layouts/AuthenticatedLayout.vue';
 import CardLayout from '../../components/Layouts/CardLayout.vue';
 import DataTable from '../../components/Tables/DataTable.vue';
 
@@ -36,6 +39,7 @@ import api from '../../services/api';
 export default {
   name: 'DisciplinesListing',
   components: {
+    AuthenticatedLayout,
     CardLayout,
     DataTable,
     RouteButton,

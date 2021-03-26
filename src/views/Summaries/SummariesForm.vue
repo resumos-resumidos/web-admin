@@ -1,56 +1,58 @@
 <template>
-  <CardLayout>
-    <template #toolbar>
-      <v-toolbar-title>
-        Resumos
-      </v-toolbar-title>
-      <v-spacer />
-      <RouteButton
-        label="Voltar"
-        route-path="/summaries"
-      />
-    </template>
-    <template #cardText>
-      <v-form @submit.prevent>
-        <v-select
-          v-model="disciplineId"
-          :items="disciplines"
-          label="Disciplina"
-          no-data-text="Não existe nenhuma disciplina cadastrada"
-          @change="getContentsByDiscipline"
+  <AuthenticatedLayout>
+    <CardLayout>
+      <template #toolbar>
+        <v-toolbar-title>
+          Resumos
+        </v-toolbar-title>
+        <v-spacer />
+        <RouteButton
+          label="Voltar"
+          route-path="/summaries"
         />
-        <v-select
-          v-model="contentId"
-          :disabled="disciplineId === null"
-          :error-messages="errors.content_id"
-          :items="contents"
-          label="Conteúdo"
-          :messages="disciplineId === null ? contentIdHint : null"
-          no-data-text="Não existe nenhum contéudo cadastrado para esta disciplina"
-          @focus="errors.content_id = null"
+      </template>
+      <template #cardText>
+        <v-form @submit.prevent>
+          <v-select
+            v-model="disciplineId"
+            :items="disciplines"
+            label="Disciplina"
+            no-data-text="Não existe nenhuma disciplina cadastrada"
+            @change="getContentsByDiscipline"
+          />
+          <v-select
+            v-model="contentId"
+            :disabled="disciplineId === null"
+            :error-messages="errors.content_id"
+            :items="contents"
+            label="Conteúdo"
+            :messages="disciplineId === null ? contentIdHint : null"
+            no-data-text="Não existe nenhum contéudo cadastrado para esta disciplina"
+            @focus="errors.content_id = null"
+          />
+          <v-text-field
+            v-model="title"
+            :error-messages="errors.title"
+            label="Resumo"
+            @focus="errors.title = null"
+            @keydown.enter="saveSummary"
+          />
+          <v-checkbox
+            v-model="free"
+            :error-messages="errors.free"
+            label="Gratuito"
+            @click="errors.free = null"
+          />
+        </v-form>
+      </template>
+      <template #cardActions>
+        <ActionButton
+          label="Salvar"
+          @action="saveSummary"
         />
-        <v-text-field
-          v-model="title"
-          :error-messages="errors.title"
-          label="Resumo"
-          @focus="errors.title = null"
-          @keydown.enter="saveSummary"
-        />
-        <v-checkbox
-          v-model="free"
-          :error-messages="errors.free"
-          label="Gratuito"
-          @click="errors.free = null"
-        />
-      </v-form>
-    </template>
-    <template #cardActions>
-      <ActionButton
-        label="Salvar"
-        @action="saveSummary"
-      />
-    </template>
-  </CardLayout>
+      </template>
+    </CardLayout>
+  </AuthenticatedLayout>
 </template>
 
 <script>
@@ -58,6 +60,7 @@ import { mapMutations } from 'vuex';
 
 import ActionButton from '../../components/Buttons/ActionButton.vue';
 import RouteButton from '../../components/Buttons/RouteButton.vue';
+import AuthenticatedLayout from '../../components/Layouts/AuthenticatedLayout.vue';
 import CardLayout from '../../components/Layouts/CardLayout.vue';
 
 import api from '../../services/api';
@@ -66,6 +69,7 @@ export default {
   name: 'SummariesForm',
   components: {
     ActionButton,
+    AuthenticatedLayout,
     CardLayout,
     RouteButton,
   },

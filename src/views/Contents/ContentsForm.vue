@@ -1,41 +1,43 @@
 <template>
-  <CardLayout>
-    <template #toolbar>
-      <v-toolbar-title>
-        Contéudos
-      </v-toolbar-title>
-      <v-spacer />
-      <RouteButton
-        label="Voltar"
-        route-path="/contents"
-      />
-    </template>
-    <template #cardText>
-      <v-form @submit.prevent>
-        <v-select
-          v-model="disciplineId"
-          :error-messages="errors.discipline_id"
-          :items="disciplines"
-          label="Disciplina"
-          no-data-text="Não existe nenhuma disciplina cadastrada"
-          @focus="errors.discipline_id = null"
+  <AuthenticatedLayout>
+    <CardLayout>
+      <template #toolbar>
+        <v-toolbar-title>
+          Contéudos
+        </v-toolbar-title>
+        <v-spacer />
+        <RouteButton
+          label="Voltar"
+          route-path="/contents"
         />
-        <v-text-field
-          v-model="title"
-          :error-messages="errors.title"
-          label="Conteúdo"
-          @focus="errors.title = null"
-          @keydown.enter="saveContent"
+      </template>
+      <template #cardText>
+        <v-form @submit.prevent>
+          <v-select
+            v-model="disciplineId"
+            :error-messages="errors.discipline_id"
+            :items="disciplines"
+            label="Disciplina"
+            no-data-text="Não existe nenhuma disciplina cadastrada"
+            @focus="errors.discipline_id = null"
+          />
+          <v-text-field
+            v-model="title"
+            :error-messages="errors.title"
+            label="Conteúdo"
+            @focus="errors.title = null"
+            @keydown.enter="saveContent"
+          />
+        </v-form>
+      </template>
+      <template #cardActions>
+        <ActionButton
+          label="Salvar"
+          @action="saveContent"
         />
-      </v-form>
-    </template>
-    <template #cardActions>
-      <ActionButton
-        label="Salvar"
-        @action="saveContent"
-      />
-    </template>
-  </CardLayout>
+      </template>
+    </CardLayout>
+  </AuthenticatedLayout>
 </template>
 
 <script>
@@ -43,6 +45,7 @@ import { mapMutations } from 'vuex';
 
 import ActionButton from '../../components/Buttons/ActionButton.vue';
 import RouteButton from '../../components/Buttons/RouteButton.vue';
+import AuthenticatedLayout from '../../components/Layouts/AuthenticatedLayout.vue';
 import CardLayout from '../../components/Layouts/CardLayout.vue';
 
 import api from '../../services/api';
@@ -51,6 +54,7 @@ export default {
   name: 'ContentsForm',
   components: {
     ActionButton,
+    AuthenticatedLayout,
     CardLayout,
     RouteButton,
   },
