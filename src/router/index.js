@@ -10,6 +10,8 @@ import Home from '../views/Home/Home.vue';
 import SummariesForm from '../views/Summaries/SummariesForm.vue';
 import SummariesListing from '../views/Summaries/SummariesListing.vue';
 
+import store from '../store';
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -63,6 +65,16 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   mode: 'history',
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  store.dispatch('getAccessToken');
+
+  if (to.path !== '/login' && !store.state.accessToken) {
+    next({ path: '/login' });
+  } else {
+    next();
+  }
 });
 
 export default router;
