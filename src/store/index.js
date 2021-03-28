@@ -3,6 +3,13 @@ import Vuex from 'vuex';
 
 Vue.use(Vuex);
 
+const getInitialState = () => ({
+  snackbar: {
+    show: false,
+    text: null,
+  },
+});
+
 export default new Vuex.Store({
   actions: {
   },
@@ -14,10 +21,5 @@ export default new Vuex.Store({
       state.snackbar.text = text;
     },
   },
-  state: {
-    snackbar: {
-      show: false,
-      text: null,
-    },
-  },
+  state: getInitialState(),
 });
