@@ -39,13 +39,11 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
-
 import ActionButton from '../../components/Buttons/ActionButton.vue';
 import CardLayout from '../../components/Layouts/CardLayout.vue';
 import GuestLayout from '../../components/Layouts/GuestLayout.vue';
 
-import api from '../../services/api';
+import request from '../../mixins/request';
 
 export default {
   name: 'Login',
@@ -54,6 +52,7 @@ export default {
     CardLayout,
     GuestLayout,
   },
+  mixins: [request],
   data: () => ({
     email: null,
     errors: {},
@@ -61,24 +60,13 @@ export default {
     showPassword: false,
   }),
   methods: {
-    ...mapMutations(['HANDLE_SNACKBAR']),
     async login() {
-      try {
-        this.errors = {};
+      this.errors = {};
 
-        await api.post('/auth/login', {
-          email: this.email,
-          password: this.password,
-        });
-      } catch (errors) {
-        if (typeof errors === 'object') {
-          Object.keys(errors).forEach((field) => {
-            this.errors = { [field]: errors[field], ...this.errors };
-          });
-        } else {
-          this.HANDLE_SNACKBAR({ show: true, text: errors });
-        }
-      }
+      await this.request('post', '/auth/login', {
+        email: this.email,
+        password: this.password,
+      });
     },
   },
 };
