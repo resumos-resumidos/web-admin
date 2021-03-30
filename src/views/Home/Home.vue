@@ -39,13 +39,11 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
-
 import RouteButton from '../../components/Buttons/RouteButton.vue';
 import AuthenticatedLayout from '../../components/Layouts/AuthenticatedLayout.vue';
 import CardLayout from '../../components/Layouts/CardLayout.vue';
 
-import api from '../../services/api';
+import request from '../../mixins/request';
 
 export default {
   name: 'Home',
@@ -54,6 +52,7 @@ export default {
     CardLayout,
     RouteButton,
   },
+  mixins: [request],
   data: () => ({
     cards: [
       {
@@ -81,19 +80,16 @@ export default {
     this.getRecordsCount();
   },
   methods: {
-    ...mapMutations(['HANDLE_SNACKBAR']),
     async getRecordsCount() {
-      try {
-        const recordsCount = await api.get('/home');
+      const recordsCount = await this.request('get', '/home');
 
+      if (recordsCount) {
         this.cards = this.cards.map(({ text, recordCount, ...card }) => ({
           text: text.replace(`:${recordCount}`, recordsCount[recordCount]),
           ...card,
         }));
 
         this.loading = false;
-      } catch (error) {
-        this.HANDLE_SNACKBAR({ show: true, text: error });
       }
     },
   },
