@@ -59,6 +59,10 @@ const routes = [
     component: SummariesForm,
     path: '/summaries/edit/:id',
   },
+  {
+    path: '*',
+    redirect: '/',
+  },
 ];
 
 const router = new VueRouter({
