@@ -87,7 +87,7 @@ export default {
     async getDisciplines() {
       const disciplines = await this.request('get', '/disciplines');
 
-      if (disciplines.length > 0) {
+      if (disciplines && disciplines.length > 0) {
         this.disciplines = disciplines.reduce((acc, discipline) => [...acc, {
           text: discipline.title,
           value: discipline.id,

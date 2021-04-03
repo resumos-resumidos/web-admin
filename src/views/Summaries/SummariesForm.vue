@@ -56,14 +56,12 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
-
 import ActionButton from '../../components/Buttons/ActionButton.vue';
 import RouteButton from '../../components/Buttons/RouteButton.vue';
 import AuthenticatedLayout from '../../components/Layouts/AuthenticatedLayout.vue';
 import CardLayout from '../../components/Layouts/CardLayout.vue';
 
-import api from '../../services/api';
+import request from '../../mixins/request';
 
 export default {
   name: 'SummariesForm',
@@ -73,6 +71,7 @@ export default {
     CardLayout,
     RouteButton,
   },
+  mixins: [request],
   data: () => ({
     contentId: null,
     contentIdHint: 'Selecione uma disciplina para buscar seus respectivos conteúdos',
@@ -96,78 +95,59 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['HANDLE_SNACKBAR']),
     async getContentsByDiscipline() {
-      try {
-        this.contentId = null;
-        this.contents = [];
+      this.contentId = null;
+      this.contents = [];
 
-        if (this.disciplineId !== null) {
-          const discipline = await api.get(`/disciplines/${this.disciplineId}`);
+      if (this.disciplineId) {
+        const discipline = await this.request('get', `/disciplines/${this.disciplineId}`);
 
-          if (discipline.contents.length > 0) {
-            this.contents.push({ text: '', value: null });
-            discipline.contents.forEach((content) => this.contents.push({
-              text: content.title,
-              value: content.id,
-            }));
-          }
+        if (discipline.contents && discipline.contents.length > 0) {
+          this.contents = discipline.contents.reduce((acc, content) => [...acc, {
+            text: content.title,
+            value: content.id,
+          }], [{ text: '', value: null }]);
         }
-      } catch (error) {
-        this.HANDLE_SNACKBAR({ show: true, text: error });
       }
     },
     async getDisciplines() {
-      try {
-        const disciplines = await api.get('/disciplines');
+      const disciplines = await this.request('get', '/disciplines');
 
-        if (disciplines.length > 0) {
-          this.disciplines.push({ text: '', value: null });
-          disciplines.forEach((discipline) => this.disciplines.push({
-            text: discipline.title,
-            value: discipline.id,
-          }));
-        }
-      } catch (error) {
-        this.HANDLE_SNACKBAR({ show: true, text: error });
+      if (disciplines && disciplines.length > 0) {
+        this.disciplines = disciplines.reduce((acc, discipline) => [...acc, {
+          text: discipline.title,
+          value: discipline.id,
+        }], [{ text: '', value: null }]);
       }
     },
     async getSummary() {
-      try {
-        const summary = await api.get(`/summaries/${this.summaryId}`);
+      const summary = await this.request('get', `/summaries/${this.summaryId}`);
 
+      if (summary) {
         this.disciplineId = summary.content.discipline.id;
-        this.title = summary.title;
-        this.free = summary.free;
 
         await this.getContentsByDiscipline();
 
         this.contentId = summary.content.id;
-      } catch (error) {
-        this.HANDLE_SNACKBAR({ show: true, text: error });
+        this.title = summary.title;
+        this.free = summary.free;
       }
     },
     async saveSummary() {
-      try {
-        this.errors = {};
+      this.errors = {};
 
-        const data = {
-          content_id: this.contentId,
-          free: this.free,
-          title: this.title,
-        };
+      const data = {
+        content_id: this.contentId,
+        free: this.free,
+        title: this.title,
+      };
 
-        if (this.summaryId) {
-          await api.put(`/summaries/${this.summaryId}`, data);
-        } else {
-          await api.post('/summaries', data);
-        }
+      const summary = this.summaryId
+        ? await this.request('put', `/summaries/${this.summaryId}`, data)
+        : await this.request('post', '/summaries', data);
 
+      if (summary) {
         this.$router.push('/summaries');
-      } catch (errors) {
-        Object.keys(errors).forEach((field) => {
-          this.errors = { [field]: errors[field], ...this.errors };
-        });
       }
     },
   },
