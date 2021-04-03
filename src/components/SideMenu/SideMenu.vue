@@ -68,17 +68,29 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 import SideMenuItem from './SideMenuItem.vue';
+
+import request from '../../mixins/request';
 
 export default {
   name: 'SideMenu',
   components: {
     SideMenuItem,
   },
+  mixins: [request],
   data: () => ({ drawer: null }),
   methods: {
-    logout() {
-      console.log('logout');
+    ...mapActions(['getAccessToken']),
+    async logout() {
+      const response = await this.request('post', '/auth/logout');
+
+      if (response) {
+        localStorage.removeItem('accessToken');
+        await this.getAccessToken();
+        this.$router.push('/login');
+      }
     },
   },
 };
