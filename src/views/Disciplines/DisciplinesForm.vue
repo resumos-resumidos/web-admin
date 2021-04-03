@@ -33,14 +33,12 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
-
 import ActionButton from '../../components/Buttons/ActionButton.vue';
 import RouteButton from '../../components/Buttons/RouteButton.vue';
 import AuthenticatedLayout from '../../components/Layouts/AuthenticatedLayout.vue';
 import CardLayout from '../../components/Layouts/CardLayout.vue';
 
-import api from '../../services/api';
+import request from '../../mixins/request';
 
 export default {
   name: 'DisciplinesForm',
@@ -50,6 +48,7 @@ export default {
     CardLayout,
     RouteButton,
   },
+  mixins: [request],
   data: () => ({
     errors: {},
     title: null,
@@ -65,34 +64,24 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['HANDLE_SNACKBAR']),
     async getDiscipline() {
-      try {
-        const discipline = await api.get(`/disciplines/${this.disciplineId}`);
+      const discipline = await this.request('get', `/disciplines/${this.disciplineId}`);
+
+      if (discipline) {
         this.title = discipline.title;
-      } catch (error) {
-        this.HANDLE_SNACKBAR({ show: true, text: error });
       }
     },
     async saveDiscipline() {
-      try {
-        this.errors = {};
+      this.errors = {};
 
-        const data = {
-          title: this.title,
-        };
+      const data = { title: this.title };
 
-        if (this.disciplineId) {
-          await api.put(`/disciplines/${this.disciplineId}`, data);
-        } else {
-          await api.post('/disciplines', data);
-        }
+      const discipline = this.disciplineId
+        ? await this.request('put', `/disciplines/${this.disciplineId}`, data)
+        : await this.request('post', '/disciplines', data);
 
+      if (discipline) {
         this.$router.push('/disciplines');
-      } catch (errors) {
-        Object.keys(errors).forEach((field) => {
-          this.errors = { [field]: errors[field], ...this.errors };
-        });
       }
     },
   },
