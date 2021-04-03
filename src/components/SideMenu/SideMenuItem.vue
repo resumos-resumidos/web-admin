@@ -2,6 +2,7 @@
   <v-list-item
     link
     :to="to"
+    @click="$emit('click')"
   >
     <v-list-item-action>
       <v-icon>{{ icon }}</v-icon>
@@ -26,7 +27,7 @@ export default {
     },
     to: {
       type: String,
-      required: true,
+      default: undefined,
     },
   },
 };

@@ -53,6 +53,16 @@
           to="/summaries"
         />
       </v-list>
+
+      <v-divider />
+
+      <v-list dense>
+        <SideMenuItem
+          icon="mdi-logout-variant"
+          title="Sair"
+          @click="logout"
+        />
+      </v-list>
     </v-navigation-drawer>
   </div>
 </template>
@@ -66,6 +76,11 @@ export default {
     SideMenuItem,
   },
   data: () => ({ drawer: null }),
+  methods: {
+    logout() {
+      console.log('logout');
+    },
+  },
 };
 </script>
 
