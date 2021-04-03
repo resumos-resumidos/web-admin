@@ -27,14 +27,12 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
-
 import RouteButton from '../../components/Buttons/RouteButton.vue';
 import AuthenticatedLayout from '../../components/Layouts/AuthenticatedLayout.vue';
 import CardLayout from '../../components/Layouts/CardLayout.vue';
 import DataTable from '../../components/Tables/DataTable.vue';
 
-import api from '../../services/api';
+import request from '../../mixins/request';
 
 export default {
   name: 'DisciplinesListing',
@@ -44,6 +42,7 @@ export default {
     DataTable,
     RouteButton,
   },
+  mixins: [request],
   data: () => ({
     headers: [
       {
@@ -59,29 +58,25 @@ export default {
     this.getDisciplines();
   },
   methods: {
-    ...mapMutations(['HANDLE_SNACKBAR']),
     async deleteDiscipline(disciplineId) {
-      try {
-        if (window.confirm('Tem certeza que deseja excluir esta disciplina?')) {
-          await api.delete(`/disciplines/${disciplineId}`);
+      if (window.confirm('Tem certeza que deseja excluir esta disciplina?')) {
+        const response = await this.request('delete', `/disciplines/${disciplineId}`);
+
+        if (response) {
           this.items = this.items.filter((item) => item.id !== disciplineId);
         }
-      } catch (error) {
-        this.HANDLE_SNACKBAR({ show: true, text: error });
       }
     },
     async getDisciplines() {
-      try {
-        const disciplines = await api.get('/disciplines');
+      const disciplines = await this.request('get', '/disciplines');
 
+      if (disciplines) {
         disciplines.forEach((discipline) => this.items.push({
           discipline: discipline.title,
           id: discipline.id,
         }));
 
         this.loading = false;
-      } catch (error) {
-        this.HANDLE_SNACKBAR({ show: true, text: error });
       }
     },
   },

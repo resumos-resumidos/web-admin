@@ -10,7 +10,7 @@ export default {
           ...(data && { data }),
         });
 
-        return response;
+        return response || true;
       } catch (error) {
         if (typeof error === 'object') {
           Object.keys(error).forEach((field) => {
