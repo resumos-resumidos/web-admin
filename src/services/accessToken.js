@@ -2,19 +2,19 @@ import api from './api';
 
 const ACCESS_TOKEN = 'accessToken';
 
-const getAccessToken = () => (
-  localStorage.getItem(ACCESS_TOKEN)
-);
+function getAccessToken() {
+  return localStorage.getItem(ACCESS_TOKEN);
+}
 
-const removeAccessToken = () => {
+function removeAccessToken() {
   localStorage.removeItem(ACCESS_TOKEN);
-};
+}
 
-const setAccessToken = (accessToken) => {
+function setAccessToken(accessToken) {
   localStorage.setItem(ACCESS_TOKEN, accessToken);
-};
+}
 
-const verifyAccessToken = async () => {
+async function verifyAccessToken() {
   try {
     await api.get('/auth/verify');
 
@@ -22,7 +22,7 @@ const verifyAccessToken = async () => {
   } catch (error) {
     return false;
   }
-};
+}
 
 export {
   getAccessToken,
