@@ -27,14 +27,12 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
-
 import RouteButton from '../../components/Buttons/RouteButton.vue';
 import AuthenticatedLayout from '../../components/Layouts/AuthenticatedLayout.vue';
 import CardLayout from '../../components/Layouts/CardLayout.vue';
 import DataTable from '../../components/Tables/DataTable.vue';
 
-import api from '../../services/api';
+import request from '../../mixins/request';
 
 export default {
   name: 'SummariesListing',
@@ -44,6 +42,7 @@ export default {
     DataTable,
     RouteButton,
   },
+  mixins: [request],
   data: () => ({
     headers: [
       {
@@ -71,21 +70,19 @@ export default {
     this.getSummaries();
   },
   methods: {
-    ...mapMutations(['HANDLE_SNACKBAR']),
     async deleteSummary(summaryId) {
-      try {
-        if (window.confirm('Tem certeza que deseja excluir este resumo?')) {
-          await api.delete(`/summaries/${summaryId}`);
+      if (window.confirm('Tem certeza que deseja excluir este resumo?')) {
+        const response = await this.request('delete', `/summaries/${summaryId}`);
+
+        if (response) {
           this.items = this.items.filter((item) => item.id !== summaryId);
         }
-      } catch (error) {
-        this.HANDLE_SNACKBAR({ show: true, text: error });
       }
     },
     async getSummaries() {
-      try {
-        const summaries = await api.get('/summaries');
+      const summaries = await this.request('get', '/summaries');
 
+      if (summaries) {
         summaries.forEach((summary) => this.items.push({
           content: summary.content.title,
           discipline: summary.content.discipline.title,
@@ -95,8 +92,6 @@ export default {
         }));
 
         this.loading = false;
-      } catch (error) {
-        this.HANDLE_SNACKBAR({ show: true, text: error });
       }
     },
   },
