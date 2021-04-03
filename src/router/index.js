@@ -10,6 +10,7 @@ import Home from '../views/Home/Home.vue';
 import SummariesForm from '../views/Summaries/SummariesForm.vue';
 import SummariesListing from '../views/Summaries/SummariesListing.vue';
 
+import { verifyAccessToken } from '../services/accessToken';
 import store from '../store';
 
 Vue.use(VueRouter);
@@ -71,11 +72,16 @@ const router = new VueRouter({
   routes,
 });
 
-router.beforeEach((to, from, next) => {
-  store.dispatch('getAccessToken');
-
+router.beforeEach(async (to, from, next) => {
   if (to.path !== '/login' && !store.state.accessToken) {
-    next({ path: '/login' });
+    const accessTokenIsValid = await verifyAccessToken();
+
+    if (accessTokenIsValid) {
+      store.dispatch('getAccessToken');
+      next();
+    } else {
+      next({ path: '/login' });
+    }
   } else {
     next();
   }
