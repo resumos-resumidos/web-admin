@@ -1,6 +1,17 @@
 import api from './api';
 
-const refreshAccessToken = async () => {
+const ACCESS_TOKEN = 'accessToken';
+
+const getAccessToken = () => (
+  localStorage.getItem(ACCESS_TOKEN)
+);
+
+const removeAccessToken = () => {
+  localStorage.removeItem(ACCESS_TOKEN);
+};
+
+const setAccessToken = (accessToken) => {
+  localStorage.setItem(ACCESS_TOKEN, accessToken);
 };
 
 const verifyAccessToken = async () => {
@@ -14,6 +25,8 @@ const verifyAccessToken = async () => {
 };
 
 export {
-  refreshAccessToken,
+  getAccessToken,
+  removeAccessToken,
+  setAccessToken,
   verifyAccessToken,
 };
