@@ -41,14 +41,12 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
-
 import ActionButton from '../../components/Buttons/ActionButton.vue';
 import RouteButton from '../../components/Buttons/RouteButton.vue';
 import AuthenticatedLayout from '../../components/Layouts/AuthenticatedLayout.vue';
 import CardLayout from '../../components/Layouts/CardLayout.vue';
 
-import api from '../../services/api';
+import request from '../../mixins/request';
 
 export default {
   name: 'ContentsForm',
@@ -58,6 +56,7 @@ export default {
     CardLayout,
     RouteButton,
   },
+  mixins: [request],
   data: () => ({
     disciplineId: null,
     disciplines: [],
@@ -77,52 +76,38 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['HANDLE_SNACKBAR']),
     async getContent() {
-      try {
-        const content = await api.get(`/contents/${this.contentId}`);
+      const content = await this.request('get', `/contents/${this.contentId}`);
 
+      if (content) {
         this.disciplineId = content.discipline_id;
         this.title = content.title;
-      } catch (error) {
-        this.HANDLE_SNACKBAR({ show: true, text: error });
       }
     },
     async getDisciplines() {
-      try {
-        const disciplines = await api.get('/disciplines');
+      const disciplines = await this.request('get', '/disciplines');
 
-        if (disciplines.length > 0) {
-          this.disciplines.push({ text: '', value: null });
-          disciplines.forEach((discipline) => this.disciplines.push({
-            text: discipline.title,
-            value: discipline.id,
-          }));
-        }
-      } catch (error) {
-        this.HANDLE_SNACKBAR({ show: true, text: error });
+      if (disciplines.length > 0) {
+        this.disciplines = disciplines.reduce((acc, discipline) => [...acc, {
+          text: discipline.title,
+          value: discipline.id,
+        }], [{ text: '', value: null }]);
       }
     },
     async saveContent() {
-      try {
-        this.errors = {};
+      this.errors = {};
 
-        const data = {
-          discipline_id: this.disciplineId,
-          title: this.title,
-        };
+      const data = {
+        discipline_id: this.disciplineId,
+        title: this.title,
+      };
 
-        if (this.contentId) {
-          await api.put(`/contents/${this.contentId}`, data);
-        } else {
-          await api.post('/contents', data);
-        }
+      const content = this.contentId
+        ? await this.request('put', `/contents/${this.contentId}`, data)
+        : await this.request('post', '/contents', data);
 
+      if (content) {
         this.$router.push('/contents');
-      } catch (errors) {
-        Object.keys(errors).forEach((field) => {
-          this.errors = { [field]: errors[field], ...this.errors };
-        });
       }
     },
   },
