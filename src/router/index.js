@@ -77,7 +77,7 @@ router.beforeEach(async (to, from, next) => {
     const accessTokenIsValid = await verifyAccessToken();
 
     if (accessTokenIsValid) {
-      store.dispatch('getAccessToken');
+      store.commit('SET_ACCESS_TOKEN', localStorage.getItem('accessToken'));
       next();
     } else {
       next({ path: '/login' });

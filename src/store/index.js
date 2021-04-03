@@ -12,12 +12,7 @@ const getInitialState = () => ({
 });
 
 export default new Vuex.Store({
-  actions: {
-    async getAccessToken({ commit }) {
-      const accessToken = localStorage.getItem('accessToken');
-      commit('SET_ACCESS_TOKEN', accessToken);
-    },
-  },
+  actions: {},
   modules: {},
   mutations: {
     HANDLE_SNACKBAR: (state, { show, text }) => {
