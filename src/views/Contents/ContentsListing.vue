@@ -27,14 +27,12 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
-
 import RouteButton from '../../components/Buttons/RouteButton.vue';
 import AuthenticatedLayout from '../../components/Layouts/AuthenticatedLayout.vue';
 import CardLayout from '../../components/Layouts/CardLayout.vue';
 import DataTable from '../../components/Tables/DataTable.vue';
 
-import api from '../../services/api';
+import request from '../../mixins/request';
 
 export default {
   name: 'ContentsListing',
@@ -44,6 +42,7 @@ export default {
     DataTable,
     RouteButton,
   },
+  mixins: [request],
   data: () => ({
     headers: [
       {
@@ -63,21 +62,19 @@ export default {
     this.getContents();
   },
   methods: {
-    ...mapMutations(['HANDLE_SNACKBAR']),
     async deleteContent(contentId) {
-      try {
-        if (window.confirm('Tem certeza que deseja excluir este conteúdo?')) {
-          await api.delete(`/contents/${contentId}`);
+      if (window.confirm('Tem certeza que deseja excluir este conteúdo?')) {
+        const response = await this.request('delete', `/contents/${contentId}`);
+
+        if (response) {
           this.items = this.items.filter((item) => item.id !== contentId);
         }
-      } catch (error) {
-        this.HANDLE_SNACKBAR({ show: true, text: error });
       }
     },
     async getContents() {
-      try {
-        const contents = await api.get('/contents');
+      const contents = await this.request('get', '/contents');
 
+      if (contents) {
         contents.forEach((content) => this.items.push({
           content: content.title,
           discipline: content.discipline.title,
@@ -85,8 +82,6 @@ export default {
         }));
 
         this.loading = false;
-      } catch (error) {
-        this.HANDLE_SNACKBAR({ show: true, text: error });
       }
     },
   },
