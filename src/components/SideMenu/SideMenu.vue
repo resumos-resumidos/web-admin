@@ -71,6 +71,7 @@
 import SideMenuItem from './SideMenuItem.vue';
 
 import request from '../../mixins/request';
+import { getAccessToken, removeAccessToken } from '../../services/accessToken/localStorage';
 
 export default {
   name: 'SideMenu',
@@ -84,8 +85,8 @@ export default {
       const response = await this.request('post', '/auth/logout');
 
       if (response) {
-        localStorage.removeItem('accessToken');
-        this.$store.commit('SET_ACCESS_TOKEN', null);
+        removeAccessToken();
+        this.$store.commit('SET_ACCESS_TOKEN', getAccessToken());
         this.$router.push('/login');
       }
     },

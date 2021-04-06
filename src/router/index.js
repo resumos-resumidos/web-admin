@@ -10,7 +10,8 @@ import Home from '../views/Home/Home.vue';
 import SummariesForm from '../views/Summaries/SummariesForm.vue';
 import SummariesListing from '../views/Summaries/SummariesListing.vue';
 
-import { verifyAccessToken } from '../services/accessToken';
+import { getAccessToken } from '../services/accessToken/localStorage';
+import verifyAccessToken from '../services/accessToken/verifyAccessToken';
 import store from '../store';
 
 Vue.use(VueRouter);
@@ -77,7 +78,7 @@ router.beforeEach(async (to, from, next) => {
     const accessTokenIsValid = await verifyAccessToken();
 
     if (accessTokenIsValid) {
-      store.commit('SET_ACCESS_TOKEN', localStorage.getItem('accessToken'));
+      store.commit('SET_ACCESS_TOKEN', getAccessToken());
       next();
     } else {
       next({ path: '/login' });

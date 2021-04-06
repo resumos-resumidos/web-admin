@@ -44,6 +44,7 @@ import CardLayout from '../../components/Layouts/CardLayout.vue';
 import GuestLayout from '../../components/Layouts/GuestLayout.vue';
 
 import request from '../../mixins/request';
+import { getAccessToken, setAccessToken } from '../../services/accessToken/localStorage';
 
 export default {
   name: 'Login',
@@ -69,8 +70,8 @@ export default {
       });
 
       if (accessToken) {
-        localStorage.setItem('accessToken', accessToken.access_token);
-        this.$store.commit('SET_ACCESS_TOKEN', localStorage.getItem('accessToken'));
+        setAccessToken(accessToken.access_token);
+        this.$store.commit('SET_ACCESS_TOKEN', getAccessToken());
         this.$router.push('/');
       }
     },
