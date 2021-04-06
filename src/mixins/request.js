@@ -16,6 +16,8 @@ export default {
           Object.keys(error).forEach((field) => {
             this.errors = { [field]: error[field], ...this.errors };
           });
+        } else if (error === 'O token de autenticação informado é inválido') {
+          this.$router.push('/login');
         } else {
           this.$store.commit('HANDLE_SNACKBAR', { show: true, text: error });
         }
