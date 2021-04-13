@@ -25,7 +25,7 @@
     <template v-slot:[`item.actions`]="{ item }">
       <v-btn
         icon
-        :to="`${routePath}/edit/${item.id}`"
+        :to="`${routePath}/edit/${item.slug}`"
       >
         <v-icon>
           mdi-pencil
@@ -33,7 +33,7 @@
       </v-btn>
       <v-btn
         icon
-        @click="$emit('destroy', item.id)"
+        @click="$emit('destroy', item.slug)"
       >
         <v-icon>
           mdi-delete
