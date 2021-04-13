@@ -35,7 +35,7 @@ const routes = [
   },
   {
     component: DisciplinesForm,
-    path: '/disciplines/edit/:id',
+    path: '/disciplines/edit/:slug',
   },
   {
     component: ContentsListing,
@@ -47,7 +47,7 @@ const routes = [
   },
   {
     component: ContentsForm,
-    path: '/contents/edit/:id',
+    path: '/contents/edit/:slug',
   },
   {
     component: SummariesListing,
@@ -59,7 +59,7 @@ const routes = [
   },
   {
     component: SummariesForm,
-    path: '/summaries/edit/:id',
+    path: '/summaries/edit/:slug',
   },
   {
     path: '*',
