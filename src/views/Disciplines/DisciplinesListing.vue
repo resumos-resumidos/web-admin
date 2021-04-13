@@ -62,12 +62,12 @@ export default {
     this.getDisciplines();
   },
   methods: {
-    async deleteDiscipline(disciplineId) {
+    async deleteDiscipline(slug) {
       if (window.confirm('Tem certeza que deseja excluir esta disciplina?')) {
-        const response = await this.request('delete', `/disciplines/${disciplineId}`);
+        const response = await this.request('delete', `/disciplines/${slug}`);
 
         if (response) {
-          this.items = this.items.filter((item) => item.id !== disciplineId);
+          this.items = this.items.filter((item) => item.slug !== slug);
         }
       }
     },
@@ -77,7 +77,6 @@ export default {
       if (disciplines) {
         disciplines.forEach((discipline) => this.items.push({
           discipline: discipline.title,
-          id: discipline.id,
           slug: discipline.slug,
         }));
 

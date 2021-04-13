@@ -74,12 +74,12 @@ export default {
     this.getSummaries();
   },
   methods: {
-    async deleteSummary(summaryId) {
+    async deleteSummary(slug) {
       if (window.confirm('Tem certeza que deseja excluir este resumo?')) {
-        const response = await this.request('delete', `/summaries/${summaryId}`);
+        const response = await this.request('delete', `/summaries/${slug}`);
 
         if (response) {
-          this.items = this.items.filter((item) => item.id !== summaryId);
+          this.items = this.items.filter((item) => item.slug !== slug);
         }
       }
     },
@@ -91,7 +91,6 @@ export default {
           content: summary.content.title,
           discipline: summary.content.discipline.title,
           free: summary.free ? 'Sim' : 'Não',
-          id: summary.id,
           slug: summary.slug,
           summary: summary.title,
         }));

@@ -66,12 +66,12 @@ export default {
     this.getContents();
   },
   methods: {
-    async deleteContent(contentId) {
+    async deleteContent(slug) {
       if (window.confirm('Tem certeza que deseja excluir este conteúdo?')) {
-        const response = await this.request('delete', `/contents/${contentId}`);
+        const response = await this.request('delete', `/contents/${slug}`);
 
         if (response) {
-          this.items = this.items.filter((item) => item.id !== contentId);
+          this.items = this.items.filter((item) => item.slug !== slug);
         }
       }
     },
@@ -82,7 +82,6 @@ export default {
         contents.forEach((content) => this.items.push({
           content: content.title,
           discipline: content.discipline.title,
-          id: content.id,
           slug: content.slug,
         }));
 
