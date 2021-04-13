@@ -53,6 +53,10 @@ export default {
         text: 'Contéudo',
         value: 'content',
       },
+      {
+        text: 'Slug',
+        value: 'slug',
+      },
     ],
     items: [],
     loading: true,
@@ -79,6 +83,7 @@ export default {
           content: content.title,
           discipline: content.discipline.title,
           id: content.id,
+          slug: content.slug,
         }));
 
         this.loading = false;

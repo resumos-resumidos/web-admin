@@ -49,6 +49,10 @@ export default {
         text: 'Disciplina',
         value: 'discipline',
       },
+      {
+        text: 'Slug',
+        value: 'slug',
+      },
     ],
     items: [],
     loading: true,
@@ -74,6 +78,7 @@ export default {
         disciplines.forEach((discipline) => this.items.push({
           discipline: discipline.title,
           id: discipline.id,
+          slug: discipline.slug,
         }));
 
         this.loading = false;

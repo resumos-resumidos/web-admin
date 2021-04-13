@@ -58,6 +58,10 @@ export default {
         value: 'summary',
       },
       {
+        text: 'Slug',
+        value: 'slug',
+      },
+      {
         text: 'Gratuito',
         value: 'free',
       },
@@ -88,6 +92,7 @@ export default {
           discipline: summary.content.discipline.title,
           free: summary.free ? 'Sim' : 'Não',
           id: summary.id,
+          slug: summary.slug,
           summary: summary.title,
         }));
 
