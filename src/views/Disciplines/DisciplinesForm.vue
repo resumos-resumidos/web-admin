@@ -13,13 +13,31 @@
       </template>
       <template #cardText>
         <v-form @submit.prevent>
-          <v-text-field
-            v-model="title"
-            :error-messages="errors.title"
-            label="Disciplina"
-            @focus="errors.title = null"
-            @keydown.enter="saveDiscipline"
-          />
+          <v-row :no-gutters="$vuetify.breakpoint.xsOnly">
+            <v-col
+              cols="12"
+              sm="6"
+            >
+              <v-text-field
+                v-model="title"
+                :error-messages="errors.title"
+                label="Disciplina"
+                @focus="errors.title = null"
+                @keydown.enter="saveDiscipline"
+              />
+            </v-col>
+            <v-col
+              cols="12"
+              sm="6"
+            >
+              <v-text-field
+                v-model="slug"
+                disabled
+                :error-messages="errors.slug"
+                label="Slug"
+              />
+            </v-col>
+          </v-row>
         </v-form>
       </template>
       <template #cardActions>
@@ -33,6 +51,8 @@
 </template>
 
 <script>
+import slugify from 'slugify';
+
 import ActionButton from '../../components/Buttons/ActionButton.vue';
 import RouteButton from '../../components/Buttons/RouteButton.vue';
 import AuthenticatedLayout from '../../components/Layouts/AuthenticatedLayout.vue';
@@ -51,11 +71,14 @@ export default {
   mixins: [request],
   data: () => ({
     errors: {},
-    title: null,
+    title: '',
   }),
   computed: {
     disciplineId() {
       return this.$route.params.id;
+    },
+    slug() {
+      return slugify(this.title, { lower: true });
     },
   },
   async created() {
@@ -74,7 +97,10 @@ export default {
     async saveDiscipline() {
       this.errors = {};
 
-      const data = { title: this.title };
+      const data = {
+        slug: this.slug,
+        title: this.title,
+      };
 
       const discipline = this.disciplineId
         ? await this.request('put', `/disciplines/${this.disciplineId}`, data)

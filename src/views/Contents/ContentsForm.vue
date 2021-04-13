@@ -21,13 +21,31 @@
             no-data-text="Não existe nenhuma disciplina cadastrada"
             @focus="errors.discipline_id = null"
           />
-          <v-text-field
-            v-model="title"
-            :error-messages="errors.title"
-            label="Conteúdo"
-            @focus="errors.title = null"
-            @keydown.enter="saveContent"
-          />
+          <v-row :no-gutters="$vuetify.breakpoint.xsOnly">
+            <v-col
+              cols="12"
+              sm="6"
+            >
+              <v-text-field
+                v-model="title"
+                :error-messages="errors.title"
+                label="Conteúdo"
+                @focus="errors.title = null"
+                @keydown.enter="saveContent"
+              />
+            </v-col>
+            <v-col
+              cols="12"
+              sm="6"
+            >
+              <v-text-field
+                v-model="slug"
+                disabled
+                :error-messages="errors.slug"
+                label="Slug"
+              />
+            </v-col>
+          </v-row>
         </v-form>
       </template>
       <template #cardActions>
@@ -41,6 +59,8 @@
 </template>
 
 <script>
+import slugify from 'slugify';
+
 import ActionButton from '../../components/Buttons/ActionButton.vue';
 import RouteButton from '../../components/Buttons/RouteButton.vue';
 import AuthenticatedLayout from '../../components/Layouts/AuthenticatedLayout.vue';
@@ -61,11 +81,14 @@ export default {
     disciplineId: null,
     disciplines: [],
     errors: {},
-    title: null,
+    title: '',
   }),
   computed: {
     contentId() {
       return this.$route.params.id;
+    },
+    slug() {
+      return slugify(this.title, { lower: true });
     },
   },
   async created() {
@@ -99,6 +122,7 @@ export default {
 
       const data = {
         discipline_id: this.disciplineId,
+        slug: this.slug,
         title: this.title,
       };
 

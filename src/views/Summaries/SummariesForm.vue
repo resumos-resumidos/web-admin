@@ -30,13 +30,31 @@
             no-data-text="Não existe nenhum contéudo cadastrado para esta disciplina"
             @focus="errors.content_id = null"
           />
-          <v-text-field
-            v-model="title"
-            :error-messages="errors.title"
-            label="Resumo"
-            @focus="errors.title = null"
-            @keydown.enter="saveSummary"
-          />
+          <v-row :no-gutters="$vuetify.breakpoint.xsOnly">
+            <v-col
+              cols="12"
+              sm="6"
+            >
+              <v-text-field
+                v-model="title"
+                :error-messages="errors.title"
+                label="Resumo"
+                @focus="errors.title = null"
+                @keydown.enter="saveSummary"
+              />
+            </v-col>
+            <v-col
+              cols="12"
+              sm="6"
+            >
+              <v-text-field
+                v-model="slug"
+                disabled
+                :error-messages="errors.slug"
+                label="Slug"
+              />
+            </v-col>
+          </v-row>
           <v-checkbox
             v-model="free"
             :error-messages="errors.free"
@@ -56,6 +74,8 @@
 </template>
 
 <script>
+import slugify from 'slugify';
+
 import ActionButton from '../../components/Buttons/ActionButton.vue';
 import RouteButton from '../../components/Buttons/RouteButton.vue';
 import AuthenticatedLayout from '../../components/Layouts/AuthenticatedLayout.vue';
@@ -80,9 +100,12 @@ export default {
     disciplines: [],
     errors: {},
     free: false,
-    title: null,
+    title: '',
   }),
   computed: {
+    slug() {
+      return slugify(this.title, { lower: true });
+    },
     summaryId() {
       return this.$route.params.id;
     },
@@ -139,6 +162,7 @@ export default {
       const data = {
         content_id: this.contentId,
         free: this.free,
+        slug: this.slug,
         title: this.title,
       };
 
