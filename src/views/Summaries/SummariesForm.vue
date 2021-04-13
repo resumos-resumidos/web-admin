@@ -14,7 +14,7 @@
       <template #cardText>
         <v-form @submit.prevent>
           <v-select
-            v-model="disciplineId"
+            v-model="disciplineSlug"
             :items="disciplines"
             label="Disciplina"
             no-data-text="Não existe nenhuma disciplina cadastrada"
@@ -22,11 +22,11 @@
           />
           <v-select
             v-model="contentId"
-            :disabled="disciplineId === null"
+            :disabled="disciplineSlug === null"
             :error-messages="errors.content_id"
             :items="contents"
             label="Conteúdo"
-            :messages="disciplineId === null ? contentIdHint : null"
+            :messages="disciplineSlug === null ? contentIdHint : null"
             no-data-text="Não existe nenhum contéudo cadastrado para esta disciplina"
             @focus="errors.content_id = null"
           />
@@ -96,7 +96,7 @@ export default {
     contentId: null,
     contentIdHint: 'Selecione uma disciplina para buscar seus respectivos conteúdos',
     contents: [],
-    disciplineId: null,
+    disciplineSlug: null,
     disciplines: [],
     errors: {},
     free: false,
@@ -106,14 +106,11 @@ export default {
     slug() {
       return slugify(this.title, { lower: true });
     },
-    summaryId() {
-      return this.$route.params.id;
-    },
   },
   async created() {
     this.getDisciplines();
 
-    if (this.summaryId) {
+    if (this.$route.params.slug) {
       this.getSummary();
     }
   },
@@ -122,8 +119,8 @@ export default {
       this.contentId = null;
       this.contents = [];
 
-      if (this.disciplineId) {
-        const discipline = await this.request('get', `/disciplines/${this.disciplineId}`);
+      if (this.disciplineSlug) {
+        const discipline = await this.request('get', `/disciplines/${this.disciplineSlug}`);
 
         if (discipline.contents && discipline.contents.length > 0) {
           this.contents = discipline.contents.reduce((acc, content) => [...acc, {
@@ -139,15 +136,15 @@ export default {
       if (disciplines && disciplines.length > 0) {
         this.disciplines = disciplines.reduce((acc, discipline) => [...acc, {
           text: discipline.title,
-          value: discipline.id,
+          value: discipline.slug,
         }], [{ text: '', value: null }]);
       }
     },
     async getSummary() {
-      const summary = await this.request('get', `/summaries/${this.summaryId}`);
+      const summary = await this.request('get', `/summaries/${this.$route.params.slug}`);
 
       if (summary) {
-        this.disciplineId = summary.content.discipline.id;
+        this.disciplineSlug = summary.content.discipline.slug;
 
         await this.getContentsByDiscipline();
 
@@ -166,8 +163,8 @@ export default {
         title: this.title,
       };
 
-      const summary = this.summaryId
-        ? await this.request('put', `/summaries/${this.summaryId}`, data)
+      const summary = this.$route.params.slug
+        ? await this.request('put', `/summaries/${this.$route.params.slug}`, data)
         : await this.request('post', '/summaries', data);
 
       if (summary) {

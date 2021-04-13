@@ -74,21 +74,18 @@ export default {
     title: '',
   }),
   computed: {
-    disciplineId() {
-      return this.$route.params.id;
-    },
     slug() {
       return slugify(this.title, { lower: true });
     },
   },
   async created() {
-    if (this.disciplineId) {
+    if (this.$route.params.slug) {
       this.getDiscipline();
     }
   },
   methods: {
     async getDiscipline() {
-      const discipline = await this.request('get', `/disciplines/${this.disciplineId}`);
+      const discipline = await this.request('get', `/disciplines/${this.$route.params.slug}`);
 
       if (discipline) {
         this.title = discipline.title;
@@ -102,8 +99,8 @@ export default {
         title: this.title,
       };
 
-      const discipline = this.disciplineId
-        ? await this.request('put', `/disciplines/${this.disciplineId}`, data)
+      const discipline = this.$route.params.slug
+        ? await this.request('put', `/disciplines/${this.$route.params.slug}`, data)
         : await this.request('post', '/disciplines', data);
 
       if (discipline) {

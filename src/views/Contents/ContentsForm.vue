@@ -84,9 +84,6 @@ export default {
     title: '',
   }),
   computed: {
-    contentId() {
-      return this.$route.params.id;
-    },
     slug() {
       return slugify(this.title, { lower: true });
     },
@@ -94,13 +91,13 @@ export default {
   async created() {
     this.getDisciplines();
 
-    if (this.contentId) {
+    if (this.$route.params.slug) {
       this.getContent();
     }
   },
   methods: {
     async getContent() {
-      const content = await this.request('get', `/contents/${this.contentId}`);
+      const content = await this.request('get', `/contents/${this.$route.params.slug}`);
 
       if (content) {
         this.disciplineId = content.discipline_id;
@@ -126,8 +123,8 @@ export default {
         title: this.title,
       };
 
-      const content = this.contentId
-        ? await this.request('put', `/contents/${this.contentId}`, data)
+      const content = this.$route.params.slug
+        ? await this.request('put', `/contents/${this.$route.params.slug}`, data)
         : await this.request('post', '/contents', data);
 
       if (content) {
