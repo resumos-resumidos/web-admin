@@ -20,7 +20,7 @@ export default {
       },
       set(newValue) {
         if (newValue === false) {
-          this.HANDLE_SNACKBAR({ show: false, text: null });
+          this.SET_SNACKBAR({ show: false, text: null });
         }
       },
     },
@@ -29,7 +29,7 @@ export default {
     },
   },
   methods: {
-    ...mapMutations(['HANDLE_SNACKBAR']),
+    ...mapMutations(['SET_SNACKBAR']),
   },
 };
 </script>

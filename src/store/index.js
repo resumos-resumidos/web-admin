@@ -16,15 +16,15 @@ export default new Vuex.Store({
   actions: {},
   modules: {},
   mutations: {
-    HANDLE_SNACKBAR: (state, { show, text }) => {
-      state.snackbar.show = show;
-      state.snackbar.text = text;
-    },
     SET_ACCESS_TOKEN: (state, accessToken) => {
       state.accessToken = accessToken;
     },
     SET_LOADING: (state, loading) => {
       state.loading = loading;
+    },
+    SET_SNACKBAR: (state, { show, text }) => {
+      state.snackbar.show = show;
+      state.snackbar.text = text;
     },
   },
   state: getInitialState(),

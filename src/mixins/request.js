@@ -5,8 +5,8 @@ import api from '../services/api';
 export default {
   methods: {
     ...mapMutations([
-      'HANDLE_SNACKBAR',
       'SET_LOADING',
+      'SET_SNACKBAR',
     ]),
     async request(method, url, data) {
       this.SET_LOADING(true);
@@ -27,7 +27,7 @@ export default {
         } else if (error === 'O token de autenticação informado é inválido') {
           this.$router.push('/login');
         } else {
-          this.HANDLE_SNACKBAR({ show: true, text: error });
+          this.SET_SNACKBAR({ show: true, text: error });
         }
 
         return false;
