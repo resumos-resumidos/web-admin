@@ -3,6 +3,8 @@ import api from '../services/api';
 export default {
   methods: {
     async request(method, url, data) {
+      this.$store.commit('SET_LOADING', true);
+
       try {
         const response = await api({
           method,
@@ -23,6 +25,8 @@ export default {
         }
 
         return false;
+      } finally {
+        this.$store.commit('SET_LOADING', false);
       }
     },
   },
