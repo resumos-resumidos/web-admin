@@ -1,9 +1,15 @@
+import { mapMutations } from 'vuex';
+
 import api from '../services/api';
 
 export default {
   methods: {
+    ...mapMutations([
+      'HANDLE_SNACKBAR',
+      'SET_LOADING',
+    ]),
     async request(method, url, data) {
-      this.$store.commit('SET_LOADING', true);
+      this.SET_LOADING(true);
 
       try {
         const response = await api({
@@ -21,12 +27,12 @@ export default {
         } else if (error === 'O token de autenticação informado é inválido') {
           this.$router.push('/login');
         } else {
-          this.$store.commit('HANDLE_SNACKBAR', { show: true, text: error });
+          this.HANDLE_SNACKBAR({ show: true, text: error });
         }
 
         return false;
       } finally {
-        this.$store.commit('SET_LOADING', false);
+        this.SET_LOADING(false);
       }
     },
   },

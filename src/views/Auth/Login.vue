@@ -39,6 +39,8 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
+
 import ActionButton from '../../components/Buttons/ActionButton.vue';
 import CardLayout from '../../components/Layouts/CardLayout.vue';
 import GuestLayout from '../../components/Layouts/GuestLayout.vue';
@@ -61,6 +63,7 @@ export default {
     showPassword: false,
   }),
   methods: {
+    ...mapMutations(['SET_ACCESS_TOKEN']),
     async login() {
       this.errors = {};
 
@@ -71,7 +74,7 @@ export default {
 
       if (accessToken) {
         setAccessToken(accessToken.access_token);
-        this.$store.commit('SET_ACCESS_TOKEN', getAccessToken());
+        this.SET_ACCESS_TOKEN(getAccessToken());
         this.$router.push('/');
       }
     },

@@ -68,6 +68,8 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
+
 import SideMenuItem from './SideMenuItem.vue';
 
 import request from '../../mixins/request';
@@ -81,12 +83,13 @@ export default {
   mixins: [request],
   data: () => ({ drawer: null }),
   methods: {
+    ...mapMutations(['SET_ACCESS_TOKEN']),
     async logout() {
       const response = await this.request('post', '/auth/logout');
 
       if (response) {
         removeAccessToken();
-        this.$store.commit('SET_ACCESS_TOKEN', getAccessToken());
+        this.SET_ACCESS_TOKEN(getAccessToken());
         this.$router.push('/login');
       }
     },
