@@ -47,6 +47,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
   name: 'DataTable',
   props: {
@@ -56,10 +58,6 @@ export default {
     },
     items: {
       type: Array,
-      required: true,
-    },
-    loading: {
-      type: Boolean,
       required: true,
     },
     messageWhenNoRecords: {
@@ -91,6 +89,7 @@ export default {
     search: '',
   }),
   computed: {
+    ...mapState(['loading']),
     noResultsText() {
       return `Nenhum resultado encontrado para "${this.search}"`;
     },

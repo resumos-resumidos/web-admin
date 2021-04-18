@@ -19,13 +19,12 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
   name: 'CardLayout',
-  props: {
-    loading: {
-      type: Boolean,
-      default: false,
-    },
+  computed: {
+    ...mapState(['loading']),
   },
 };
 </script>

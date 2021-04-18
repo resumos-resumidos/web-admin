@@ -7,7 +7,7 @@
         cols="12"
         md="4"
       >
-        <CardLayout :loading="loading">
+        <CardLayout>
           <template #toolbar>
             <v-toolbar-title>
               {{ card.title }}
@@ -39,6 +39,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 import RouteButton from '../../components/Buttons/RouteButton.vue';
 import AuthenticatedLayout from '../../components/Layouts/AuthenticatedLayout.vue';
 import CardLayout from '../../components/Layouts/CardLayout.vue';
@@ -74,8 +76,10 @@ export default {
         title: 'Resumos',
       },
     ],
-    loading: true,
   }),
+  computed: {
+    ...mapState(['loading']),
+  },
   created() {
     this.getRecordsCount();
   },
@@ -88,8 +92,6 @@ export default {
           text: text.replace(`:${recordCount}`, recordsCount[recordCount]),
           ...card,
         }));
-
-        this.loading = false;
       }
     },
   },
